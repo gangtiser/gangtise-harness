@@ -97,9 +97,28 @@ gangtise-harness/
 └── .cache/ .checkpoint/ .task-pulse
 ```
 
+## 前置依赖：Gangtise OpenAPI CLI
+
+数据层依赖 **[gangtise-openapi-cli](https://github.com/gangtiser/gangtise-openapi-cli)**（命令行 `gangtise`，提供行情 / 财务 / 估值 / 一致预期 / 股东 / 主营 / 公告 / AI 能力）。它是主数据源——没有它，只能退到 Tavily / WebSearch 兜底。
+
+```bash
+# 安装（需 Node.js）
+npm install -g gangtise-openapi-cli
+
+# 验证（本 harness 基于 0.16.0 验证）
+gangtise --version
+
+# 自检一条（代码须带 .SH/.SZ 后缀）
+gangtise quote day-kline --security 600000.SH --limit 1 --field close --format json
+```
+
+- **认证 / 配置**：按 CLI 仓库文档完成 → <https://github.com/gangtiser/gangtise-openapi-cli>
+- **代码格式**：证券代码须带交易所后缀（沪市 `.SH`、深市 `.SZ`），裸代码会报"非有效A股"
+- **调用约定**：所有 `gangtise` 命令封装在 `core/adapters.md`，skill 不直接写死命令——换 CLI 版本或参数只改 adapters
+
 ## 快速开始
 
-1. 把本仓库放进你的工作区（或作为 `.claude/` 子集）
+1. 安装并认证上面的 **Gangtise OpenAPI CLI**，再把本仓库放进你的工作区（或作为 `.claude/` 子集）
 2. 从 `.claude/skills/investor-harness/setup/workspace/*.template` 生成你自己的 live 文件：`coverage.md` / `watchlist.md` / `decision-log.md` / `biases.md` / `people-watch.md` / `research-queue.md` / `active-tasks.md` / `memory.md`
 3. 按需改 `CLAUDE.md` 顶部"我是谁"（覆盖范围 + 数据源）
 4. 新会话 LLM 先读 `CLAUDE.md` + `core/_boot.md`，然后：
