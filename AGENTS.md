@@ -17,7 +17,7 @@ There is no package manifest, build system, or automated test runner. Use inspec
 - `find .claude/skills/investor-harness -maxdepth 2 -type f | sort` reviews harness skill and core files.
 - `git diff -- <path>` reviews local changes when inside a Git checkout.
 
-For deck projects, keep source Markdown in `sources/` and generated files in `exports/` or `coverage/*/decks/`. If `projects/` does not exist yet, create it only for active deck work.
+For deck projects, keep source Markdown in `sources/` and generated `.pptx` in `coverage/<ticker>/decks/`. `projects/` (gitignored) is only scratch space for active deck generation; once a deck is final, file its source project under `coverage/<ticker>/decks/_project/` so all material for a ticker stays in one place.
 
 ## Coding Style & Naming Conventions
 

@@ -141,11 +141,21 @@ LLM 在每次输出前估算剩余 context budget：
 - 覆盖池批量 / 健康检查 → `sk-batch-refresh` · `sk-batch-earnings` · `sk-catalyst-sweep` · `sk-health-check`
 - 不知道用哪个 → `sk-autopilot` 自动路由
 
+### 2.1 深度研究流水线（5-agent · 对抗式）
+
+需要**有对抗性、要独立反方 + 合规过审**的深度研究（起 coverage、重大决策前、命题复核）时，走 `.claude/agents/` 的 5-agent 流水线：
+
+`data-fetcher`（Gangtise 取数）→ `thesis-builder`（可证伪命题）→ `red-teamer`（强制反方 + 查 biases）→ `pm-voice`（一页纸）→ `compliance-checker`（合规终审）
+
+- 触发："按研究流水线深度看 X" / "跑一遍 5-agent 流水线"
+- **串行**执行，每棒输出喂给下一棒；编排细节见 `.claude/agents/README.md`
+- 日常轻量查询用单个 sk-* 即可（流水线 token 开销大，约 30-40 万 subagent token）
+
 ### 3. 数据获取协议
 
 按 Investor Harness `.claude/skills/investor-harness/core/adapters.md` 的优先级取数：
 
-1. Gangtise OpenAPI（A 股 / 公募）
+1. Gangtise OpenAPI（全市场主数据源 · A股/港股/美股；证券代码须带 `.SH`/`.SZ` 后缀，如 `688256.SH`）
 2. **缓存优先**（`.cache/{ticker}_{type}_{date}.json`，当日有效）
 3. Gangtise 知识库搜索（knowledge-batch，研报/纪要/公告）
 4. Tavily MCP（外部信息搜索）
@@ -229,6 +239,7 @@ LLM 在每次输出前估算剩余 context budget：
 | "今天股票池复盘 / 盘后看一下" | 调 `sk-close-recap` |
 | "盯一下盘 / 盘中监控" | 调 `sk-hourly-watch` |
 | "搭一个 X 的数据库 / 底表" | 调 `sk-industry-database` |
+| "按研究流水线深度看 X" / "跑一遍流水线" | 走 `.claude/agents/` 5-agent 流水线 |
 
 ---
 
@@ -248,6 +259,8 @@ LLM 在每次输出前估算剩余 context budget：
 |---|---|
 | Investor Harness skills | `.claude/skills/investor-harness/skills/` |
 | Investor Harness core | `.claude/skills/investor-harness/core/` |
+| 研究流水线 subagent（5 个 + 编排说明） | `.claude/agents/`（README.md 讲协同） |
+| 套件清单（机器可读 skill/core/agent 注册表） | `.claude/skills/investor-harness/manifest.yaml` |
 | 我的覆盖池 | `./coverage.md` |
 | 我的观察池 | `./watchlist.md` |
 | 我的决策日志 | `./decision-log.md` |
