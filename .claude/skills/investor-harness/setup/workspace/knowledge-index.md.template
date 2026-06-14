@@ -9,8 +9,8 @@
 
 | 类型 | 名称 | 路径 / 链接 | 最近更新 | 备注 |
 |---|---|---|---|---|
-| Coverage | [示例] 寒武纪 | `vault/688256/wiki.md` | 2026-05-01 | AI 芯片 |
-| Watchlist | [示例] 中际旭创 | `vault/300308/wiki.md` | 2026-05-01 | 光模块 |
+| Coverage | [示例] 某 AI 芯片 | `vault/60XXXX/wiki.md` | 2026-05-01 | AI 芯片 |
+| Watchlist | [示例] 某光模块 | `vault/30XXXX/wiki.md` | 2026-05-01 | 光模块 |
 
 ---
 
@@ -18,8 +18,8 @@
 
 | 主题 | 主文档 | 相关公司 | 最近更新 | 当前状态 |
 |---|---|---|---|---|
-| AI 训练链 | `themes/ai-training/index.md` | 寒武纪 / 浪潮信息 / 工业富联 |  | 跟踪中 |
-| 光模块 | `themes/optical/index.md` | 中际旭创 / 新易盛 / 天孚通信 |  | 跟踪中 |
+| AI 训练链 | `themes/ai-training/index.md` | 某算力芯片 / 某服务器 / 某代工 |  | 跟踪中 |
+| 光模块 | `themes/optical/index.md` | 某光模块龙头 / 某二线光模块 / 某光器件 |  | 跟踪中 |
 
 ---
 
