@@ -161,7 +161,7 @@
   - `family_hits = 1`
 
 - `mx-stocks-screener` + `em-stockpick`
-  - 如果本质上是同一套东方财富自然语言筛选，默认 `family_hits = 1`
+  - 如果本质上是同一套自然语言选股平台自然语言筛选，默认 `family_hits = 1`
 
 ## 6. 推荐输出
 

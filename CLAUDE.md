@@ -162,7 +162,7 @@ LLM 在每次输出前估算剩余 context budget：
 
 ### 4. 证据分级
 
-对每条关键事实，必须按 `.claude/skills/investor-harness/core/evidence.md` 标**完整中文证据等级**（旧版 `F1/F2/M1/C1/H1` 字母缩写自 v0.9.2 起废弃）：
+对每条关键事实，必须按 `.claude/skills/investor-harness/core/evidence.md` 标**完整中文证据等级**（不使用任何字母缩写）：
 
 - `公开事实` — 公开、可直接验证的事实
 - `财报披露` — 财报 / 公告 / 官方披露 / 权威数据库

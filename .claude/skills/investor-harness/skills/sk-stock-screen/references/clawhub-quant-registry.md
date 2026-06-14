@@ -21,7 +21,7 @@
 | strategy_id | role | vote_mode | family | comparable | 市场 | 核心原理 | 出处 |
 |---|---|---|---|---|---|---|---|
 | `a-stock-picker` | generator | direct | three-layer-a-share | yes | CN-A | 5维量化初筛 -> 5项定性验证 -> 择时 | `danpian1/a-stock-picker` |
-| `mx-stocks-screener` | generator | direct | eastmoney-natural-language | yes | CN-A/HK/US | 东方财富妙想自然语言筛选 | `financial-ai-analyst/mx-stocks-screener` |
+| `mx-stocks-screener` | generator | direct | nl-screener | yes | CN-A/HK/US | 自然语言选股平台自然语言筛选 | `financial-ai-analyst/mx-stocks-screener` |
 | `iwencai-screener` | generator | direct | wencai-theme | yes | CN-A | 先拆核心利好方向，再去 i问财抓前5 | `caobingxi/iwencai-screener` |
 | `stock-select` | generator | direct | stockboot-level2 | yes | CN-A | 自然语言选股 + Level2 主力资金 + 交易接口 | `wanghl-cn/stock-select` |
 | `yufeng-stock-screener` | generator | direct | cloud-shortterm-score | yes | CN-A | 技术/资金/筹码/板块轮动四维评分 + 8日择时 | `wsy0303/yufeng-stock-screener` |
@@ -34,7 +34,7 @@
 | `stock-copilot-pro` | validator | gate | multi-source-global-evaluator | conditional | CN-A/HK/US | QVeris 多源 quote/fundamental/news/social 汇总 | `buxibuxi/stock-copilot-pro` |
 | `yumstock` | validator | gate | macro-gated-single-name | conditional | US | 宏观门控 + 技术35 + 基本面25 + 宏观40 | `yumyumtum/yumstock` |
 | `stock-evaluator-v3` | validator | gate | valuation-dashboard | conditional | US | 单票深评 + 仪表盘 + 估值/质量/技术 | `demandgap/stock-evaluator` |
-| `em-stockpick` | generator | direct | eastmoney-natural-language | yes | CN-A/HK | 东方财富官网自然语言条件选股 | `silverfoxchina-gif/em-stockpick` |
+| `em-stockpick` | generator | direct | nl-screener | yes | CN-A/HK | 自然语言选股平台官网自然语言条件选股 | `silverfoxchina-gif/em-stockpick` |
 | `a-share-real-time-data` | data | none | china-market-data | no | CN-A | mootdx/TDX 实时行情与逐笔 | `wangdinglu/a-share-real-time-data` |
 | `stock-picker-orchestrator` | meta | none | orchestrator | no | GLOBAL | 任务路由与预算控制，不直接出票 | `ndtchan/stock-picker-orchestrator` |
 
@@ -42,7 +42,7 @@
 
 - `tradingview-query`：`tvscreener` 与 `tradingview-screener` 属同族  
   raw 可以双记；family-adjusted 只能算 1 票
-- `eastmoney-natural-language`：`mx-stocks-screener` 与 `em-stockpick` 属同族  
+- `nl-screener`：`mx-stocks-screener` 与 `em-stockpick` 属同族  
   如果问题几乎同义，只能算 1 票；若一个查 A 股、一个查港股，可分开记
 - `validator` 家族：`stock-copilot-pro`、`yumstock`、`stock-evaluator-v3` 不直接创造 universe  
   只能对已有候选池给 `pass / reject / downgrade`
@@ -64,7 +64,7 @@
 - ClawHub ID：`financial-ai-analyst/mx-stocks-screener`
 - Role：`generator`
 - Markets：`CN-A / HK / US / ETF / 基金 / 板块 / 可转债`
-- Core principle：把自然语言条件翻译成东方财富妙想筛选条件，支持技术面、基本面、新闻面、情绪面和逻辑组合
+- Core principle：把自然语言条件翻译成自然语言选股平台筛选条件，支持技术面、基本面、新闻面、情绪面和逻辑组合
 - Best use：快速把一句模糊需求翻成全市场筛选表达式
 - Main bias：更像数据检索器，不是自带 alpha；结果质量高度依赖 query 写法
 - Source note：ClawHub `inspect mx-stocks-screener`；需要 `EM_API_KEY`
@@ -106,7 +106,7 @@
 - Markets：`CN-A`
 - Core principle：四维同时满足才买入：ZJTJ 主力控盘、SAR 趋势翻多、放量验证、市场情绪不过冷
 - Best use：A 股短线波段、规则型交易框架
-- Main bias：强依赖通达信/ZJTJ 语义；在震荡市容易失灵
+- Main bias：强依赖技术指标选股平台/ZJTJ 语义；在震荡市容易失灵
 - Source note：ClawHub `inspect zjtj-sar-quantum-strategy`
 
 ### 7. `intellectia-stock-screener`

@@ -66,7 +66,7 @@ LLM 看到这些公司名时，默认认为是"我的覆盖标的"，按 deepdiv
 - [ ] Gangtise OpenAPI（A 股 / 公募 / 宏观 / 资讯）— 是否已配置：
 - [ ] Tavily skill — 是否已装：
 - [ ] WebSearch / WebFetch（harness 内置）— 默认可用
-- [ ] 其他专业终端（Wind / Bloomberg / FactSet）— 是否有访问：
+- [ ] 其他数据源 / 终端— 是否有访问：
 
 ---
 
