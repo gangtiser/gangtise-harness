@@ -1,0 +1,44 @@
+# ============================================================
+# gangtise-harness · .gitignore
+# 仓库公开 → 只上传可复用的「投研 harness 框架」，
+# 绝不上传任何真实研究数据 / 个人决策 / 缓存。
+# ============================================================
+
+# ---- 真实研究产出（私密：含真实标的、命题、决策、持仓暴露）----
+coverage/
+themes/
+briefings/
+projects/
+
+# ---- 个人投研记忆 / 决策 / 观察（私密）----
+coverage.md
+decision-log.md
+biases.md
+watchlist.md
+research-queue.md
+active-tasks.md
+memory.md
+people-watch.md
+
+# 说明：以上文件的「空白模板」已随框架发布在
+# .claude/skills/investor-harness/setup/workspace/*.template，
+# 新用户从模板生成自己的 live 文件即可；本人的 live 数据保留在本地、不入库。
+
+# ---- 运行时状态 / 缓存（临时，不该入库）----
+.cache/
+.checkpoint/
+.task-pulse
+
+# ---- 备份 ----
+.claude/skills/investor-harness.bak-*
+*.bak
+*.bak-*
+
+# ---- OS / 编辑器垃圾 ----
+.DS_Store
+**/.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/

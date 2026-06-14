@@ -1,0 +1,115 @@
+# Investor Harness · 套件清单（Gangtise 定制版）
+# 机器可读的 skill/core/agent 注册表，用于发现、路由、依赖校验。
+# 基线：上游 investor-harness v0.9.2；定制：sk- 命名 / 数据源统一 Gangtise OpenAPI(+Tavily) / 完整中文证据标签。
+
+name: investor-harness
+display_name: Investor Harness（Gangtise 定制版）
+version: 0.9.2-gangtise
+description: 投研人的 AI 任务执行规范。28 个 sk-* skill + 5 个研究流水线 subagent，强制 LLM 在做投研工作时不出现幻觉、不丢失上下文、不输出杂乱。数据源统一走 Gangtise OpenAPI，证据分级用完整中文标签。
+license: MIT
+upstream: https://github.com/joansongjr/investor-harness
+last_synced: 2026-06-14
+
+# 三大痛点 + 上下文溢出保护
+solves:
+  - hallucination: 强制取数协议 + 证据分级 + 仍需补的资料段
+  - task_forgetting: 持久化记忆 + .task-pulse + .checkpoint 断点续跑
+  - lack_of_structure: 28 个标准化 skill + 输出归档协议 + 验收清单
+  - context_overflow: 三层加载（Tier 0/1/2）+ 输出文件化 + 断点续跑
+
+# 数据源：按 core/adapters.md 优先级逐级降级
+data_sources:
+  primary:
+    - name: gangtise-openapi
+      cli: gangtise
+      description: 行情/财务/估值/一致预期/股东/主营/公告/AI能力(知识库·线索·主题·一页通)
+      note: 证券代码须带交易所后缀（如 688256.SH / 002384.SZ）
+  fallback:
+    - name: tavily
+      description: 外部信息搜索
+    - name: websearch
+      description: 通用搜索（harness 内置）
+    - name: webfetch
+      description: 直取网页（HKEX / SEC EDGAR 等）
+
+markets:
+  - { code: CN-A, name: A股（沪深） }
+  - { code: CN-FUND, name: 公募基金 }
+  - { code: HK, name: 港股 }
+  - { code: US, name: 美股 }
+  - { code: GLOBAL, name: 跨市场主题 }
+
+# 28 个 skill（path 相对 harness 根）
+skills:
+  # entry — 入口/总控
+  - { id: sk-master, tier: entry, path: skills/sk-master, desc: 单 skill 长形态总控，7 模式全量 }
+  - { id: sk-autopilot, tier: entry, path: skills/sk-autopilot, desc: 轻量路由入口，自动串联下游 skill }
+  # framing — 框架/命题
+  - { id: sk-thesis, tier: framing, path: skills/sk-thesis, desc: 可证伪投资命题构建 }
+  - { id: sk-industry-map, tier: framing, path: skills/sk-industry-map, desc: 行业产业链图谱 }
+  # screening — 选股
+  - { id: sk-stock-screen, tier: screening, path: skills/sk-stock-screen, desc: 条件选股/找标的，支持多策略对比 }
+  # research — 公司/行业研究
+  - { id: sk-company-deepdive, tier: research, path: skills/sk-company-deepdive, desc: 公司深度研究（9 段） }
+  - { id: sk-earnings-preview, tier: research, path: skills/sk-earnings-preview, desc: 财报前瞻/复盘 }
+  - { id: sk-model-check, tier: research, path: skills/sk-model-check, desc: 财务模型校验 }
+  - { id: sk-consensus-watch, tier: research, path: skills/sk-consensus-watch, desc: 一致预期/预期差监控 }
+  - { id: sk-industry-database, tier: research, path: skills/sk-industry-database, desc: 行业/公司数据库搭建（Excel） }
+  # monitoring — 跟踪/盯盘
+  - { id: sk-catalyst-monitor, tier: monitoring, path: skills/sk-catalyst-monitor, desc: 催化剂/事件跟踪 }
+  - { id: sk-roadshow-questions, tier: monitoring, path: skills/sk-roadshow-questions, desc: 路演/调研问题设计 }
+  - { id: sk-close-recap, tier: monitoring, path: skills/sk-close-recap, desc: 股票池收盘复盘/日终归因 }
+  - { id: sk-hourly-watch, tier: monitoring, path: skills/sk-hourly-watch, desc: 覆盖池盘中小时级盯盘 }
+  - { id: sk-people-watch, tier: monitoring, path: skills/sk-people-watch, desc: 关键人物/社区信号跟踪 }
+  # challenge — 反方
+  - { id: sk-red-team, tier: challenge, path: skills/sk-red-team, desc: 强制空头审视 }
+  # output — 交付
+  - { id: sk-pm-brief, tier: output, path: skills/sk-pm-brief, desc: PM 一页纸 }
+  - { id: sk-briefing, tier: output, path: skills/sk-briefing, desc: 晨会/晚报简报 }
+  # technical — 技术面
+  - { id: sk-tape-review, tier: technical, path: skills/sk-tape-review, desc: 盘面+技术面复盘 }
+  # presentation — 演示
+  - { id: sk-deck-builder, tier: presentation, path: skills/sk-deck-builder, desc: PPT/路演材料生成 }
+  # batch — 批量
+  - { id: sk-batch-refresh, tier: batch, path: skills/sk-batch-refresh, desc: 覆盖池批量刷新 }
+  - { id: sk-batch-earnings, tier: batch, path: skills/sk-batch-earnings, desc: 财报季批量前瞻/复盘 }
+  - { id: sk-catalyst-sweep, tier: batch, path: skills/sk-catalyst-sweep, desc: 覆盖池每日/每周催化扫描 }
+  # librarian — 研究底稿/信息流（v0.9）
+  - { id: sk-wiki-build, tier: librarian, path: skills/sk-wiki-build, desc: 研究 wiki 自动构建 }
+  - { id: sk-daily-feed, tier: librarian, path: skills/sk-daily-feed, desc: 日度信息流刷新 }
+  - { id: sk-question-list, tier: librarian, path: skills/sk-question-list, desc: 路演/调研问题清单 }
+  - { id: sk-health-check, tier: librarian, path: skills/sk-health-check, desc: 覆盖池/数据健康检查 }
+  - { id: sk-qa-archive, tier: librarian, path: skills/sk-qa-archive, desc: Q&A/纪要归档 + wiki 级联更新 }
+
+# 强制流程 core（每个 skill 调用前后必经）
+core:
+  boot: core/_boot.md
+  preamble: core/preamble.md
+  postamble: core/postamble.md
+  adapters: core/adapters.md
+  evidence: core/evidence.md
+  compliance: core/compliance.md
+  acceptance: core/acceptance.md
+  output_archive: core/output-archive.md
+  menu: core/menu.md
+  triggers: core/triggers.md
+  checkpoint: core/checkpoint.md
+  markets: core/markets.md
+  task_pulse: core/task-pulse.md
+  full_qc: core/full-qc.md
+  librarian: core/librarian.md
+  wiki_architecture: core/wiki-architecture.md
+  qa_double_link: core/qa-double-link.md
+  daily_feed: core/daily-feed.md
+  health_check: core/health-check.md
+  user_templates: core/user-templates.md
+  user_skills: core/user-skills.md
+
+# 研究流水线 subagent（.claude/agents/，串行，详见 .claude/agents/README.md）
+agents:
+  pipeline: [data-fetcher, thesis-builder, red-teamer, pm-voice, compliance-checker]
+  description: 对抗式深度研究流水线——取数→建命题→反方→PM一页纸→合规终审
+  trigger: "按研究流水线深度看 X"
+
+# 证据分级（完整中文，旧版 F1/F2/M1/C1/H1 已废弃）
+evidence_labels: [公开事实, 财报披露, 市场共识, 合理推演, 待核验假设]
