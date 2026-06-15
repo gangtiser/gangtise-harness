@@ -48,7 +48,7 @@
 | 命令 | 用途 |
 |---|---|
 | `income-statement` / `-quarterly` / `-hk` | 利润表（A股年报 / 季报 / 港股）|
-| `balance-sheet` / `-hk` · `cash-flow` / `-hk` | 资产负债表 / 现金流（A股 + 港股）|
+| `balance-sheet` / `-hk` · `cash-flow` / `-quarterly` / `-hk` | 资产负债表 / 现金流（A股年报 / 季报 / 港股；季报支持 `--period q1/q2/q3/q4/latest`）|
 | `valuation-analysis` | 估值（`--indicator peTtm --indicator pbMrq`）|
 | `earning-forecast` | 一致预期（`--consensus netIncome --consensus eps --consensus pe`）|
 | `top-holders` | 股东（`--holder-type top10 --fiscal-year {y}`）|
