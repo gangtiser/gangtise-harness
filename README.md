@@ -105,7 +105,7 @@ gangtise-harness/
 # 安装（需 Node.js）
 npm install -g gangtise-openapi-cli
 
-# 验证（本 harness 基于 0.16.0 验证）
+# 验证（本 harness 基于 0.17.0 验证（2026-06-15））
 gangtise --version
 
 # 自检一条（代码须带 .SH/.SZ 后缀）

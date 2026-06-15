@@ -2,8 +2,8 @@
 
 > 所有 sk-* skill 与研究流水线统一按本文件取数。**充分利用 Gangtise OpenAPI 的全部覆盖**——能用 Gangtise 取到的就不要走外部；外部（Tavily/WebSearch）只作兜底。
 >
-> CLI：`gangtise`（gangtise-openapi-cli，本文件基于 v0.16.0）。
-> **精确参数以 `gangtise <group> <cmd> --help` 为准**；个别 leaf 子命令的 `--help` 会回落到顶层帮助，此时可直接试运行，或查仓库文档 <https://github.com/gangtiser/gangtise-openapi-cli>。
+> CLI：`gangtise`（gangtise-openapi-cli，本文件基于 **v0.17.0**，2026-06-15）。
+> **v0.17.0 严格参数校验**：传未声明的 `--xxx` 选项会被 commander 直接拒为 `unknown option`（v0.16.0 之前会静默忽略）。**精确参数以 `gangtise <group> <cmd> --help` 为准**；个别 leaf 子命令的 `--help` 会回落到顶层帮助，此时可直接试运行，或查仓库文档 <https://github.com/gangtiser/gangtise-openapi-cli>。
 
 ---
 
@@ -20,7 +20,7 @@
 ## 证券代码格式 & 代码查询
 
 - **代码必带交易所后缀（实测）**：A股沪市 `.SH` / 深市 `.SZ`（如 `600000.SH`）；**港股 5 位 + `.HK`**（如 `00700.HK`，4 位 `0700.HK` 返空）；**美股 `.O`（纳斯达克）/ `.N`（纽交所）**，如 `AAPL.O`、`NVDA.O`——**不是 `.US`**。裸代码在 `fundamental` 报 `430009 非有效A股`、在 `quote` 返回空。
-- **不确定代码 / 只知公司名** → 先查 `gangtise reference securities-search --keyword "{公司名}" --format json`（返回 `gtsCode`），或 `gangtise lookup` 查券商/会议机构 ID。
+- **不确定代码 / 只知公司名** → 先查 `gangtise reference securities-search --keyword "{公司名}" --format json`（返回 `gtsCode`）。`gangtise lookup` 自 v0.16 起仅保留 `broker-org` / `meeting-org`，原行业/区域/题材/公告分类已由 `reference constant-list` / `concept-search` / `sector-constituents` 覆盖。
 
 ---
 
@@ -64,7 +64,20 @@
 | **研报** | `research list`+`download` · `foreign-report list`+`download` · `strategy list` | 研报 / 外资研报 / 策略报告 |
 | **公告** | `announcement list`+`download` · `announcement-hk` | A股 / 港股公告 |
 
-通用过滤参数（实测 `opinion list` / `research list`）：`--security <code>` `--start-time` `--end-time` `--keyword` `--rank-type`（1 综合 / 2 时间倒序）`--broker` `--industry` `--concept` `--rating` `--source` `--size` `--from` `--format json`；`research list` 另有 `--search-type`（1 标题 / 2 全文）`--rating-change` `--min-pages/--max-pages`。`download` 用于下原文 PDF/MD。
+通用过滤参数（v0.17.0 实测）：
+
+- **观点 / 研报通用**（`opinion list` / `research list` / `summary list` / `foreign-opinion list` / `independent-opinion list` / `foreign-report list`）：`--security <code>` `--start-time` `--end-time` `--keyword` `--rank-type`（1 综合 / 2 时间倒序）`--broker` `--industry` `--concept` `--rating` `--source` `--size` `--from` `--format json`
+- **研报独有**（`research list`）：`--search-type`（1 标题 / 2 全文）`--rating-change` `--min-pages/--max-pages`
+- **日程类参数已收窄**（v0.17.0 breaking）：
+  - `roadshow list`：移除 `--object`
+  - `site-visit list`：移除 `--participant-role` / `--broker-type`
+  - `strategy list`：**仅保留** `--institution` / `--location`
+  - `forum list`：**仅保留** `--research-area` / `--location`
+- **公告**（`announcement list` / `announcement-hk list`）：移除原 `--announcement-type`；A股公告分类筛选用 `--category <constantId>`（`aShareAnnouncementCategory` 常量 ID，通过 `reference constant-list --category aShareAnnouncementCategory` 拿；如"中介公告"=103910806）
+- **常量 ID 区分**（v0.17.0 明确）：
+  - `--industry` 用 **`citicIndustry` 码**（中信一级行业，`1008001xx`，全命令通用）
+  - `--research-area` 用 **`gangtiseIndustry` 码**（行业 `1008001xx` + 宏观/策略/固收/金工/海外等方向 `122000xxx`）
+- `download` 子命令用于下原文 PDF/MD
 
 ### AI / Agent 能力 — `gangtise ai`
 | 命令 | 用途 | 主要服务的 skill |
@@ -97,6 +110,8 @@
 | `sector-search` / `sector-constituents` | 板块搜索 / 板块成分股 |
 | `concept-search` | 概念搜索 |
 | `constant-category` / `constant-list` | 枚举常量（行业/评级/类别等 ID）|
+
+> **取数前先解析常量 ID**（v0.17 严格校验，传错会被拒）：先 `reference constant-category` 看有哪些常量类，再 `reference constant-list --category <name>` 取具体 ID。常用：A股公告分类 `aShareAnnouncementCategory`、中信一级行业 `citicIndustry`、Gangtise 研究方向 `gangtiseIndustry`、国内城市 `domesticCity`。
 
 ### 云盘 / 纪要库 / 电话会 / 股票池 — `gangtise vault`
 | 命令 | 用途 |
@@ -164,4 +179,5 @@ gangtise ai security-clue --security-code {code} --start-time {date} --end-time 
 - ✅ **充分利用 Gangtise**：研究一家公司不止拉三表——一页通(`ai one-pager`)、投资逻辑、同业对比、研报/纪要(`insight`)、异动线索(`ai security-clue`)、知识库都要按需调
 - ✅ **并行**：无依赖的数据源同时调用 · ✅ **缓存**：先查 `.cache/` 再调 API · ✅ **精简**：`--field` 只选需要的
 - ✅ **代码先解析**：不确定代码先 `reference securities-search`
+- ✅ **常量先解析**：传 `--category` / `--industry` / `--research-area` 等需要 ID 的参数前，先 `reference constant-list --category <name>` 拿合法 ID（v0.17 严格校验，错 ID 会被拒）
 - ❌ 不串行等所有数据拉完再分析 · ❌ 不重复拉当日已缓存数据 · ❌ 不把知识库转述数字当财报披露
