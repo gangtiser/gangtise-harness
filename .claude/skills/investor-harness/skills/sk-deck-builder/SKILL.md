@@ -1,6 +1,6 @@
 ---
 name: sk-deck-builder
-description: 二级市场投研 PPT 生成 skill。把已有的研究输出（sk-company-deepdive / sk-thesis / sk-red-team / sk-earnings-preview 等）转成**机构级投研路演 PPT**，带完整 UI 设计系统、10 段标准结构、证据可追溯标注。适合 IC 会议、路演、PM 汇报、客户展示。依赖 anthropic-skills:pptx 做实际文件生成。
+description: 二级市场投研 PPT 生成 skill。把已有的研究输出（sk-company-deepdive / sk-thesis / sk-red-team / sk-earnings-preview 等）转成**机构级投研路演 PPT**，带完整 UI 设计系统、10 段标准结构、证据可追溯标注。适合 IC 会议、路演、PM 汇报、客户展示。依赖 document-skills:pptx 做实际文件生成。
 inputs:
   - 公司名 / 股票代码 / 行业 / 主题
   - 可选：已有研究材料、命题、反方审视、财报前瞻
@@ -24,9 +24,9 @@ markets: [CN-A, HK, US, GLOBAL]
 
 ## 强制流程（v0.4+ 硬约束）
 
-> ⛔ **任何 deck 生成之前**，必须严格执行 [`../../core/preamble.md`](../../core/preamble.md) 的 6 步开始前流程
+> ⛔ **任何 deck 生成之前**，必须严格执行 [`../../core/preamble.md`](../../core/preamble.md) 的开始前流程
 >
-> ⛔ **任何 deck 完成之前**，必须严格执行 [`../../core/postamble.md`](../../core/postamble.md) 的 8 步结束后流程
+> ⛔ **任何 deck 完成之前**，必须严格执行 [`../../core/postamble.md`](../../core/postamble.md) 的结束后流程
 >
 > 输出归档按 [`../../core/output-archive.md`](../../core/output-archive.md) 命名规范
 > 输出验收按 [`../../core/acceptance.md`](../../core/acceptance.md) 清单逐条自检
@@ -34,7 +34,7 @@ markets: [CN-A, HK, US, GLOBAL]
 > **跳过任何一环视为未完成任务。**
 
 Deck Builder 特别注意：
-- **preamble Step 2 必须读取** 同标的最新的 `sk-company-deepdive` / `sk-thesis` / `sk-red-team` / `sk-earnings-preview` / `sk-consensus-watch` 的归档输出。没有这些研究底稿，**禁止**直接生成 deck。
+- **preamble 必须读取** 同标的最新的 `sk-company-deepdive` / `sk-thesis` / `sk-red-team` / `sk-earnings-preview` / `sk-consensus-watch` 的归档输出。没有这些研究底稿，**禁止**直接生成 deck。
 - 如果用户没跑过任何研究，先提醒他："deck 是研究的包装，不是替代。建议先跑 sk-company-deepdive + sk-thesis 再来"。
 - 所有 PPT 内的事实**必须**带证据等级标注（以脚注或角标形式），和主研究保持一致。
 
@@ -366,7 +366,8 @@ typography:
 
 ### 依赖
 
-- **主依赖**：`anthropic-skills:pptx` skill（python-pptx 包装）
+- **主依赖**：`document-skills:pptx` skill（python-pptx 包装；裸名 `pptx` 亦可）
+- **降级兜底**：若 pptx skill 不可用，按 CLAUDE.md 降级策略退回 **Markdown 大纲 + SVG 模板**交付，并明确告知用户「未生成 .pptx，已给 Markdown 版本」
 - **可选**：`matplotlib` / `plotly`（如需生成图表图片）
 
 ### 执行流程
@@ -383,7 +384,7 @@ typography:
    ↓
 3. 提炼 10 slides 所需的结构化内容
    ↓
-4. 调用 anthropic-skills:pptx skill 生成 .pptx
+4. 调用 document-skills:pptx skill 生成 .pptx
    - 传入 UI 设计系统（颜色 / 字体 / 布局）
    - 传入 10 slides 的内容 dict
    ↓
@@ -403,7 +404,7 @@ typography:
 
 ### 输入与输出的数据契约
 
-**输入结构**（preamble Step 2 读完研究后应生成这个）：
+**输入结构**（preamble 读完研究后应生成这个）：
 
 ```yaml
 deck_spec:
@@ -452,7 +453,7 @@ deck_spec:
     brand_color_override: null
 ```
 
-**输出结构**（postamble Step 4/7）：
+**输出结构**（postamble）：
 
 ```
 Files created:
@@ -534,7 +535,7 @@ Preview in chat (dual output):
 | **补充** | `sk-consensus-watch` | Slide 6 的预期差来源 |
 | **补充** | `sk-catalyst-monitor` | Slide 7 的催化剂时间线 |
 | **互补** | `sk-pm-brief` | pm-brief 是一页纸文字，deck-builder 是 10 页 PPT |
-| **不替代** | `anthropic-skills:pptx` | deck-builder 调用 pptx 做文件生成，但决定结构/UI/内容的是 deck-builder |
+| **不替代** | `document-skills:pptx` | deck-builder 调用 pptx 做文件生成，但决定结构/UI/内容的是 deck-builder |
 
 **推荐流程**：
 ```
@@ -554,7 +555,7 @@ sk-thesis → sk-company-deepdive → sk-red-team → sk-consensus-watch
 4. 继承自哪些研究底稿（带日期 + 证据等级统计）
 
 文件里保存：
-1. `.pptx` 真正的 PowerPoint 文件（用 anthropic-skills:pptx 生成）
+1. `.pptx` 真正的 PowerPoint 文件（用 document-skills:pptx 生成）
 2. `.md` markdown 版本（和对话里一致，方便 diff 和跨 skill 引用）
 
 ## 参考
@@ -565,4 +566,4 @@ sk-thesis → sk-company-deepdive → sk-red-team → sk-consensus-watch
 - [../../core/compliance.md](../../core/compliance.md)
 - [../../core/output-archive.md](../../core/output-archive.md)
 - [../../core/acceptance.md](../../core/acceptance.md)
-- `anthropic-skills:pptx` — 实际生成 .pptx 文件的底层 skill
+- `document-skills:pptx` — 实际生成 .pptx 文件的底层 skill

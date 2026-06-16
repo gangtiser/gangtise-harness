@@ -19,11 +19,13 @@
 
 每个 sk-* skill 必须遵循以下规则：
 
-### Rule 1：每完成一个 H2 段就写 checkpoint
+### Rule 1：长任务每完成一个 H2 段就写 checkpoint
 
-不要等任务全部完成才写文件。每完成一段就更新 checkpoint。
+多段长任务（如 sk-company-deepdive 9 段）不要等任务全部完成才写文件——每完成一段就更新 checkpoint，保证中途被打断也能续跑。
 
 例：sk-company-deepdive 9 段，每完成 §1、§2、§3... 都更新 checkpoint。
+
+> 短任务 / 单段输出**不必每段写**：常规收尾按 [postamble.md](postamble.md) 走，checkpoint 主要由 Rule 3 的 context 预算紧张时触发。
 
 ### Rule 2：每次取数后写 checkpoint
 

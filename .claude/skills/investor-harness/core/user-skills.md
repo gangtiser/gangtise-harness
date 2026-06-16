@@ -12,7 +12,7 @@
 |---|---|---|---|
 | **L1 模板** | 重复格式化任务，分析流程不变 | 日报 / 周报 / 月报 | ⭐ |
 | **L2 继承** | 现有 skill 差一小段，想补而不改原 skill | sk-company-deepdive + ESG 专项 | ⭐⭐ |
-| **L3 自创** | 全新场景，17 个 sk-* 都没有 | 港股打新 / 可转债 / ETF 持仓对比 | ⭐⭐⭐ |
+| **L3 自创** | 全新场景，现有 sk-* 都没有 | 港股打新 / 可转债 / ETF 持仓对比 | ⭐⭐⭐ |
 
 **选择原则**：能用 L1 解决的不用 L2，能用 L2 扩展的不用 L3。
 
@@ -157,8 +157,8 @@ version: 0.1
 
 > ⛔ 本 skill 自创但**仍然**遵守 Investor Harness 的核心流程。
 >
-> 开始前：[`.claude/skills/investor-harness/core/preamble.md`](.claude/skills/investor-harness/core/preamble.md) 6 步
-> 结束后：[`.claude/skills/investor-harness/core/postamble.md`](.claude/skills/investor-harness/core/postamble.md) 8 步
+> 开始前：[`.claude/skills/investor-harness/core/preamble.md`](.claude/skills/investor-harness/core/preamble.md) 完整开始前流程
+> 结束后：[`.claude/skills/investor-harness/core/postamble.md`](.claude/skills/investor-harness/core/postamble.md) 完整结束后流程
 > 归档：按 `.claude/skills/investor-harness/core/output-archive.md` 命名规范
 > 验收：按 `.claude/skills/investor-harness/core/acceptance.md` 清单
 
@@ -287,7 +287,7 @@ cp -r ~/workspace/user-skills/my-hk-ipo-analysis skills/sk-hk-ipo-analysis
 
 # 3. 更新引用路径（从 `../../../core/` 改为相对当前项目路径）
 
-# 4. 加到 _boot.md 的 17 skills 列表 → 18 skills
+# 4. 加到 _boot.md 的 skill 列表
 
 # 5. 加到 manifest.yaml 的 skills 数组
 
@@ -317,7 +317,7 @@ gh pr create
 
 ### 启动时（Preamble 扩展）
 
-在 `core/preamble.md` Step 1 后新增：
+在 `core/preamble.md` 识别市场之后新增：
 
 ```
 Step 1.5 · 检查 user-templates 和 user-skills
@@ -347,8 +347,8 @@ Step 1.5 · 检查 user-templates 和 user-skills
 
 任何 user skill（L2 或 L3）**不能绕过**：
 
-1. `core/preamble.md` 6 步
-2. `core/postamble.md` 8 步
+1. `core/preamble.md` 完整开始前流程
+2. `core/postamble.md` 完整结束后流程
 3. 证据分级
 4. "仍需补的资料"段
 5. 合规声明
@@ -395,6 +395,6 @@ Step 1.5 · 检查 user-templates 和 user-skills
 - 升级时 update.sh 不会覆盖你的 user-skills/
 
 **L3 自创**：
-- 完全自由，可以做 17 个 sk-* 没覆盖的任何场景
+- 完全自由，可以做 现有 sk-* 没覆盖的任何场景
 - 仍然继承 Investor Harness 的纪律（preamble / postamble / 合规）
 - 可以回流贡献到主库，成为 sk-*

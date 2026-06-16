@@ -104,6 +104,10 @@ core:
   health_check: core/health-check.md
   user_templates: core/user-templates.md
   user_skills: core/user-skills.md
+  templates: core/templates.md
+  workflows: core/workflows.md
+  quick_prompts: core/quick-prompts.md
+  claude_md_section: core/claude-md-section.md
 
 # 研究流水线 subagent（.claude/agents/，串行，详见 .claude/agents/README.md）
 agents:

@@ -26,7 +26,7 @@
 
 ## 缓存规则
 
-**位置** `{workspace_root}/.cache/` · **命名** `{ticker}_{data_type}_{YYYY-MM-DD}.{json|md}` · **TTL** 当日有效，7 天过期
+**位置** `{workspace_root}/.cache/` · **命名** `{ticker}_{data_type}_{YYYY-MM-DD}.{json|md}` · **TTL** 当日有效（次日即失效，按文件名日期判断）
 
 调用前先查 `.cache/` 有无当日缓存：有则直接读、跳过 API；无则调 API → 写缓存 → 返回。
 

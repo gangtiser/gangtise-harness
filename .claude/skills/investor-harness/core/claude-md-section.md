@@ -46,32 +46,23 @@
 | "刷新覆盖池" | 走 `sk-batch-refresh` |
 | "扫事件" | 走 `sk-catalyst-sweep` |
 
-## Skill 调用的强制流程
+## Skill 调用的强制流程（以 core 文件为唯一事实源，不写死步骤编号）
 
-### 开始前 · Preamble 6 步
-读 `{{HARNESS_PATH}}/core/preamble.md`，简化：
-0. 检查 .task-pulse 续跑
-1. 识别市场
-2. 检查历史输出
-3. 检查 active-tasks
-4. **必须**输出 `[Preflight]` 取数计划
-5. 实际取数
+### 开始前 · Preamble
+读 `{{HARNESS_PATH}}/core/preamble.md`：
+- 检查 `.task-pulse` 续跑 → 识别市场 + 检查历史输出 → **必须**输出 `[Preflight]` 取数计划 → 实际并行取数（缓存优先）
 
 ### 输出时
 - 按 skill 结构
-- 每条事实必须带证据等级：公开事实 / 财报披露 / 市场共识 / 合理推演 / 待核验假设
+- 每条事实必须带证据等级：公开事实 / 财报披露 / 市场共识 / 合理推演 / 待核验假设（**随输出 inline 标注**）
 - 风险必须可观测可触发（不要"宏观波动"套话）
 
-### 结束后 · Postamble 8 步
-读 `{{HARNESS_PATH}}/core/postamble.md`，简化：
-0. 每完成一段写 .checkpoint
-1. 证据等级自检
-2. "仍需补的资料"段非空
-3. 合规声明
-4. 归档输出到 `{{COVERAGE_ROOT}}/{ticker}/{skill}/YYYY-MM-DD-{skill}.md`
-5. 更新 .task-pulse + active-tasks.md
-6. 验收清单
-7. **Dual Output Discipline** — 对话**贴完整输出** + 同时写文件；末尾追加 `📁 已归档:{path}` + 关键统计 + 下一步建议
+### 结束后 · Postamble
+读 `{{HARNESS_PATH}}/core/postamble.md`：
+- 归档输出到 `{{COVERAGE_ROOT}}/{ticker}/{skill}/YYYY-MM-DD-{skill}.md` + 更新 `.task-pulse`
+- "仍需补的资料"段非空 + 简化合规声明
+- **Dual Output Discipline** — 对话**贴完整输出** + 同时写文件；末尾追加 `📁 已归档:{path}` + 关键统计 + 下一步建议
+- checkpoint **只在 context budget 紧张（剩余 < 10k）时写**；active-tasks.md 默认**不写**；acceptance.md 默认**抽查**，仅 Librarian / 重大交付 / 用户要求时强制
 
 ⛔ **不要只回摘要**——云端用户打不开本地文件。默认必须对话 + 文件双输出。
 

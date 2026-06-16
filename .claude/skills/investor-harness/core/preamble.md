@@ -30,7 +30,8 @@
 
 **市场识别**（1 秒）：
 - 按代码格式判断：6位数字→CN-A，字母→US，4-5位数字→HK
-- 输出：`市场：{CN-A | HK | US | GLOBAL}`
+- 6 位且带"基金/ETF/LOF"字样（或 0/1/5 开头的基金代码）→ CN-FUND
+- 输出：`市场：{CN-A | CN-FUND | HK | US | GLOBAL}`
 
 **历史输出检查**（并行）：
 - 读 `coverage/{ticker}/INDEX.md`（如有）
@@ -43,7 +44,7 @@
 
 **一句话格式**：
 ```
-[Preflight] 标的：X | 市场：Y | 历史：Z | 数据源：gangtise openapi + knowledge-batch [+ taviliy]
+[Preflight] 标的：X | 市场：Y | 历史：Z | 数据源：gangtise openapi + knowledge-batch [+ tavily]
 ```
 
 **不做的事**：

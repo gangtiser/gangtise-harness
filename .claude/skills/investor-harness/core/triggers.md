@@ -4,7 +4,7 @@
 >
 > 用户 / CLAUDE.md / agent.md 只能"软提醒"，无法硬拦截。唯一的防御是：LLM 在看到用户消息的那一刻，用本文件的关键词表做 **pattern matching**，命中即触发对应 skill。
 >
-> v0.4 新增。配合 CLAUDE.md 的 eager-loaded 硬约束一起使用。
+> 配合 CLAUDE.md 的 eager-loaded 硬约束一起使用。
 
 ---
 
@@ -15,7 +15,7 @@ LLM 在每次收到用户消息后，**第一件事**是扫描消息文本，匹
 1. 如果命中任一触发词 **且** 消息里提到覆盖池中的 ticker / 公司名
 2. **立即停止"自由回答"模式**，改为"skill 调用"模式
 3. 在回答开头明确声明："识别到触发词 `{word}`，按 investor-harness 纪律执行 `sk-{skill}`"
-4. 按 preamble.md 走 Step 0-5
+4. 按 preamble.md 走完整开始前流程
 5. 调对应 skill
 6. 按 postamble.md 收尾
 
@@ -266,5 +266,5 @@ LLM 在每次收到用户消息后，**第一件事**是扫描消息文本，匹
 
 ## 版本
 
-- v0.4.1（本版）：首次引入 auto-trigger 概念，配合 CLAUDE.md 硬约束
-- 未来 v0.5 计划：实现 hooks 脚本，从机制上拦截用户 prompt
+- 随 harness v0.9.2-gangtise 发布：auto-trigger 关键词表配合 CLAUDE.md 硬约束 + 启动时记忆注入使用
+- 可选增强：UserPromptSubmit hook 脚本，从机制上拦截用户 prompt（未默认启用）

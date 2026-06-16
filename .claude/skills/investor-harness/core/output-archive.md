@@ -9,7 +9,7 @@
 
 1. **可 diff**：三个月后重跑同一个 skill，可以和上次输出做 diff
 2. **可 review**：团队成员可以读到你的研究，PM 可以审计你的工作
-3. **可引用**：其他 skill 可以读到同标的的历史输出（见 [preamble.md](preamble.md) Step 2）
+3. **可引用**：其他 skill 可以读到同标的的历史输出（见 [preamble.md](preamble.md)）
 4. **可追溯**：每次决策都能查到当时的研究底稿
 5. **可批量更新**：周度刷新等批量任务依赖归档结构
 
@@ -123,6 +123,18 @@
 | `sk-batch-refresh` | `batch-refresh` |
 | `sk-batch-earnings` | `batch-earnings` |
 | `sk-catalyst-sweep` | `catalyst-sweep` |
+| `sk-tape-review` | `tape` |
+| `sk-deck-builder` | `deck` |
+| `sk-stock-screen` | `screen` |
+| `sk-industry-database` | `industry-db` |
+| `sk-close-recap` | `close-recap` |
+| `sk-hourly-watch` | `hourly` |
+| `sk-daily-feed` | `daily-feed` |
+| `sk-people-watch` | `people` |
+| `sk-question-list` | `questions` |
+| `sk-qa-archive` | `qa` |
+| `sk-wiki-build` | `wiki` |
+| `sk-health-check` | `health` |
 
 ### Ticker 目录命名
 
@@ -180,13 +192,13 @@ skills 在归档前必须读 CLAUDE.md 拿到这两个值。
   - BIS 进一步收紧 → 上修
 ```
 
-INDEX.md 是 LLM **每次** preamble Step 2 检查的首要文件。
+INDEX.md 是 LLM **每次** preamble 检查的首要文件。
 
 ---
 
 ## 历史输出的引用机制
 
-当 preamble.md Step 2 发现历史输出时，LLM 应该：
+当 preamble.md 发现历史输出时，LLM 应该：
 
 1. 读取最近一份同 skill 的输出，diff 与本次的差异
 2. 读取该公司的 INDEX.md 拿到 current_thesis

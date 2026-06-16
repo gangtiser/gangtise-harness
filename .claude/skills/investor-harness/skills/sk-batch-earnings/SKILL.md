@@ -19,16 +19,16 @@ markets: [CN-A, HK, US]
 
 ## 强制流程（v0.3 硬约束）
 
-> ⛔ **任何分析输出之前**，必须严格执行 [`../../core/preamble.md`](../../core/preamble.md) 的 5 步开始前流程
+> ⛔ **任何分析输出之前**，必须严格执行 [`../../core/preamble.md`](../../core/preamble.md) 的开始前流程
 >
-> ⛔ **任何输出完成之前**，必须严格执行 [`../../core/postamble.md`](../../core/postamble.md) 的 6 步结束后流程
+> ⛔ **任何输出完成之前**，必须严格执行 [`../../core/postamble.md`](../../core/postamble.md) 的结束后流程
 >
 > 输出归档按 [`../../core/output-archive.md`](../../core/output-archive.md) 命名规范
 > 输出验收按 [`../../core/acceptance.md`](../../core/acceptance.md) 清单逐条自检
 >
 > **跳过任何一环视为未完成任务。**
 
-Batch Earnings 特别注意：每家公司的子任务必须**完整调用 `sk-earnings-preview`** 的逻辑，不能简化。preamble Step 4 必须先列出本次时间窗内的全部财报日历。
+Batch Earnings 特别注意：每家公司的子任务必须**完整调用 `sk-earnings-preview`** 的逻辑，不能简化。preamble 必须先列出本次时间窗内的全部财报日历。
 
 ## 适用场景
 

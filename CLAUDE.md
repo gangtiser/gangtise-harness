@@ -1,5 +1,6 @@
 # Gangtise Harness · 投研工作区
 
+> Gangtise 定制版 · harness v0.9.2-gangtise
 > 这是 LLM 在每次会话开始时首先读取的文件，定义了它在本工作区的默认行为。
 
 ---
@@ -18,23 +19,26 @@
 
 你（LLM）在本工作区工作时，必须遵守以下行为规范：
 
-### 1. 启动时先读记忆（v0.4 三层加载优化）
+### 1. 启动时先读记忆（三层加载优化，口径以 `_boot.md` 为准）
 
-**Tier 0 — 强制读取（每次新会话，< 2k tokens 合计）**
+**Tier 0 — 强制读取（每次新会话，合计约 4–5k tokens）**
 
 1. `.claude/skills/investor-harness/core/_boot.md` — harness 启动文件
 2. `.task-pulse` — 任务心跳信号，< 100 tokens
 3. 本文件 `CLAUDE.md` — 我的身份和规则
 
-**Tier 1 — 按需读取**
-4. `memory.md` — 我的记忆索引（只在需要研究身份信息时读）
-5. `active-tasks.md` — 进行中任务的完整历史（只在用户问任务详情时读；平时用 .task-pulse 就够）
-6. `coverage.md` — 我的覆盖池（只在研究覆盖标的时读）
-7. `biases.md` — 我的已知偏差（只在 sk-red-team 或决策类任务时读）
-8. `user-templates/*.md` — 我的自定义任务模板（识别触发词时扫描）
-9. `user-skills/*/SKILL.md` — 我的自定义 skill（识别触发词时扫描）
+**Tier 1 — 调 skill 时加载（按 `_boot.md`）**：对应 `SKILL.md` + `core/preamble.md` + `core/postamble.md` + `core/adapters.md`。
 
-**⛔ 严禁**在不需要时读 Tier 1 文件——浪费 token。
+**Tier 2 — 按需读取（个人数据 + 规范细则，用到才读）**
+- `memory.md` — 我的记忆索引（只在需要研究身份信息时读）
+- `coverage.md` — 我的覆盖池（只在研究覆盖标的时读）
+- `biases.md` — 我的已知偏差（只在 sk-red-team 或决策类任务时读）
+- `active-tasks.md` — 进行中任务的完整历史（只在用户问任务详情时读；平时用 .task-pulse 就够）
+- `user-templates/*.md` — 我的自定义任务模板（识别触发词时扫描）
+- `user-skills/*/SKILL.md` — 我的自定义 skill（识别触发词时扫描）
+- `core/evidence.md` / `core/compliance.md` / `core/output-archive.md` / `core/acceptance.md` 等规范细则
+
+**⛔ 严禁**在不需要时读 Tier 2 文件——浪费 token。
 
 ### 1.1 主动报告进行中的任务
 
@@ -78,29 +82,20 @@
 
 不要在用户没指定 skill 时硬猜——优先显示菜单。
 
-### 1.5 强制流程（v0.4 硬约束）
+### 1.5 强制流程（硬约束）
 
-任何 sk-* skill 调用都必须按以下两个文件严格执行：
+任何 sk-* skill 调用都必须严格执行以下两个文件的完整流程（**以文件为唯一事实源，不在此写死步骤编号**）：
 
-- 开始前 → `.claude/skills/investor-harness/core/preamble.md` 的 6 步流程
-  - Step 0 任务断点检查（v0.4 新增）
-  - Step 1 识别市场
-  - Step 2 检查历史输出
-  - Step 3 检查 active-tasks
-  - Step 4 输出 [Preflight] 取数计划
-  - Step 5 实际取数
+- 开始前 → `.claude/skills/investor-harness/core/preamble.md`
+  - 任务断点检查 → 识别市场 + 检查历史输出 → 输出 `[Preflight]` 取数计划 → 实际并行取数（缓存优先）
 
-- 结束后 → `.claude/skills/investor-harness/core/postamble.md` 的 8 步流程
-  - Step 0 增量 checkpoint 写入（v0.4 新增，每完成一段就写）
-  - Step 1 证据等级自检
-  - Step 2 "仍需补的资料"段
-  - Step 3 合规声明
-  - Step 4 归档输出（按 output-archive.md）
-  - Step 5 更新 .task-pulse + active-tasks.md
-  - Step 6 跑 acceptance.md 验收清单
-  - Step 7 Dual Output Discipline（v0.5.1 修正，对话贴完整输出 + 同时写文件备份）
+- 结束后 → `.claude/skills/investor-harness/core/postamble.md`
+  - 归档输出（按 output-archive.md）+ 更新 `.task-pulse` → Dual Output（对话贴完整输出 + 同时写文件）→ 简化合规声明
+  - 证据等级**随输出 inline 标注**，不事后批量自检
+  - checkpoint **只在 context budget 紧张（剩余 < 10k）时写**，不是每段都写
+  - active-tasks.md 默认**不写**（.task-pulse 已承载状态）；acceptance.md 默认**抽查**，仅 Librarian / 重大交付 / 用户要求时强制全量
 
-**跳过任何一步视为未完成任务**。
+**跳过 preamble / postamble 规定的步骤视为未完成任务**。
 
 ### 1.6 Context Overflow 保护（v0.4 新增）
 

@@ -22,7 +22,7 @@ trigger: 用户明示"建 coverage / 起 wiki page / onboard XXX"
 
 > ⛔ 先读 [`../../core/librarian.md`](../../core/librarian.md) 总览
 > ⛔ 再读 [`../../core/wiki-architecture.md`](../../core/wiki-architecture.md) 14 段标准
-> ⛔ 输出前按 [`../../core/postamble.md`](../../core/postamble.md) 6 步结束
+> ⛔ 输出前按 [`../../core/postamble.md`](../../core/postamble.md) 结束
 
 ## 五步
 

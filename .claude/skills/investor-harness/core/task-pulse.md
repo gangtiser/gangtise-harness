@@ -95,8 +95,8 @@
 
 任务标 done 后：
 - 从 `.task-pulse` 的 `tasks` 数组中移除该 task
-- 把任务详情归档到 `active-tasks.md` 的"已完成"段
 - 删除 `.checkpoint/{task-id}.md`
+- （可选）Librarian / 需要长期历史时，才把任务详情归档到 `active-tasks.md`；常规 sk-* 不写（见 [postamble.md](postamble.md)）
 
 ## 上下文预警协议
 

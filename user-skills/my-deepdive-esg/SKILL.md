@@ -22,8 +22,8 @@ markets: [CN-A, HK, US]
 ## 继承声明
 
 **继承的**（不动）：
-- `.claude/skills/investor-harness/core/preamble.md` 的 6 步开始前流程
-- `.claude/skills/investor-harness/core/postamble.md` 的 8 步结束后流程
+- `.claude/skills/investor-harness/core/preamble.md` 的开始前流程
+- `.claude/skills/investor-harness/core/postamble.md` 的结束后流程
 - sk-company-deepdive 的 9 段输出结构
 - 证据分级纪律
 - 合规边界

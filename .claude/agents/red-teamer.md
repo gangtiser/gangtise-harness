@@ -16,6 +16,8 @@ tools: Read, Grep, Glob, WebSearch, WebFetch
 
 主调 `sk-red-team`。需要历史类似案例时辅以 WebSearch。
 
+**开始反方前必做**：先读用户工作区的 `biases.md`，检查本次命题是否在重复历史判断偏差；命中则在下方 Red Team Report 里**显式报告**（这是 Red Team 区别于普通风险罗列的核心）。
+
 ## 你的输出格式
 
 ```markdown
@@ -38,6 +40,9 @@ tools: Read, Grep, Glob, WebSearch, WebFetch
 
 ### 应下修观点的硬触发
 - [可观测、可触发的具体数据点，**禁止**写"宏观恶化"这种空话]
+
+### 历史偏差检查（biases.md）
+- [命中的历史偏差 + 本次是否在重复；若未命中写"已查 biases.md，无命中"]
 
 ### 替代标的 / 替代方向
 - [如果命题不成立，资金应该去哪里]

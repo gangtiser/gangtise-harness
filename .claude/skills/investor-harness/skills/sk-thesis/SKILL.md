@@ -15,16 +15,16 @@ markets: [CN-A, HK, US, GLOBAL]
 
 ## 强制流程（v0.3 硬约束）
 
-> ⛔ **任何分析输出之前**，必须严格执行 [`../../core/preamble.md`](../../core/preamble.md) 的 5 步开始前流程
+> ⛔ **任何分析输出之前**，必须严格执行 [`../../core/preamble.md`](../../core/preamble.md) 的开始前流程
 >
-> ⛔ **任何输出完成之前**，必须严格执行 [`../../core/postamble.md`](../../core/postamble.md) 的 6 步结束后流程
+> ⛔ **任何输出完成之前**，必须严格执行 [`../../core/postamble.md`](../../core/postamble.md) 的结束后流程
 >
 > 输出归档按 [`../../core/output-archive.md`](../../core/output-archive.md) 命名规范
 > 输出验收按 [`../../core/acceptance.md`](../../core/acceptance.md) 清单逐条自检
 >
 > **跳过任何一环视为未完成任务。**
 
-Thesis 特别注意：数据需求最轻，但 preamble Step 2 必须检查是否有同标的的历史 deepdive / industry-map 输出。如果连基本认知都没有，先走 `sk-company-deepdive` 或 `sk-industry-map`。
+Thesis 特别注意：数据需求最轻，但 preamble 必须检查是否有同标的的历史 deepdive / industry-map 输出。如果连基本认知都没有，先走 `sk-company-deepdive` 或 `sk-industry-map`。
 
 适用场景：
 

@@ -109,7 +109,7 @@ v0.7 支持**自动路由 + 显式调用**两种触发方式。
 
 ### Step 1 · 识别是模板任务
 
-在 preamble.md Step 1 之后、Step 2 之前，LLM 额外做一步：
+在 preamble 识别市场/检查历史之后、输出 [Preflight] 之前，LLM 额外做一步：
 
 ```
 检查 {workspace}/user-templates/ 是否有匹配的模板
@@ -123,7 +123,7 @@ v0.7 支持**自动路由 + 显式调用**两种触发方式。
 
 但**输出结构用用户模板的，不用父 skill 的**。
 
-### Step 3 · 走完整 preamble（6 步）
+### Step 3 · 走完整 preamble
 
 和普通 skill 一样走取数、证据分级、检查历史等。
 
@@ -220,8 +220,8 @@ Investor Harness 自带 3 个**示例模板**在 `setup/workspace/user-templates
 
 无论模板怎么写，以下规则**不能被覆盖**：
 
-- ❌ 不能绕过 `core/preamble.md` 的 6 步开始前流程
-- ❌ 不能绕过 `core/postamble.md` 的 8 步结束后流程
+- ❌ 不能绕过 `core/preamble.md` 的开始前流程
+- ❌ 不能绕过 `core/postamble.md` 的结束后流程
 - ❌ 不能绕过证据等级标注
 - ❌ 不能绕过"仍需补的资料"段
 - ❌ 不能绕过合规声明
