@@ -2,6 +2,8 @@
 
 > 本目录下的 5 个 `.md` 是 Claude Code subagent 定义（带 frontmatter，会被自动注册为 agent 类型）。
 > 本 README 不是 agent，只是它们的"怎么协同"说明书。
+>
+> 📌 **路径约定**：下文及各 agent 里出现的 `core/xxx.md` 均指 `.claude/skills/investor-harness/core/xxx.md`（不是 `.claude/agents/core/`）。
 
 ---
 

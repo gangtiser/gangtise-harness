@@ -19,6 +19,8 @@ research-queue.md
 active-tasks.md
 memory.md
 people-watch.md
+selection-pipeline.md
+knowledge-index.md
 
 # 说明：以上文件的「空白模板」已随框架发布在
 # .claude/skills/investor-harness/setup/workspace/*.template，
@@ -28,6 +30,10 @@ people-watch.md
 .cache/
 .checkpoint/
 .task-pulse
+
+# ---- 个人本地配置（含放权设置，不入库）----
+**/settings.local.json
+AGENTS.md
 
 # ---- 备份 ----
 .claude/skills/investor-harness.bak-*

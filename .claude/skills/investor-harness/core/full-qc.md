@@ -4,6 +4,11 @@
 >
 > 这套系统的 QC 不是事后的，**是嵌在过程里的**。
 
+> **何时用 full-qc vs acceptance（唯一判定，避免重复跑）**：
+> - **Librarian / wiki / 研究底稿类**交付 → 用本文件的五层 QC（已内嵌过程，不另跑 acceptance）。
+> - **常规 sk-* 单次输出** → 走 [postamble.md](postamble.md) 的默认抽查，必要时按 [acceptance.md](acceptance.md) 全量自检。
+> - 二者**不重复跑**：同一份交付只走其一。
+
 ## 五层 QC
 
 ### 1. 数据入口 QC

@@ -1,6 +1,8 @@
 # Acceptance · 输出验收清单
 
-> 每个 skill 输出完成后，必须按本清单逐条自检。任何一条没过 → 不算完成 → 必须补完再交付。
+> **强制级别（v0.5 起）**：默认**抽查**，不在每个常规 sk-* 输出后逐条强制跑（见 [postamble.md](postamble.md) 对验收清单的处置说明）。
+> **仅在以下场景强制全量自检**：Librarian / wiki 类交付、对外/给 PM 的重大交付、用户显式要求验收。
+> 触发强制时，按本清单逐条自检，任何一条没过 → 不算完成 → 必须补完再交付。
 >
 > 这是治"幻觉"和"不成体系"的最后一道关卡。
 
@@ -11,7 +13,7 @@
 ### A. Preamble 完成度（治健忘）
 - [ ] **A1** 已识别市场（CN-A / CN-FUND / HK / US / GLOBAL）
 - [ ] **A2** 已检查同标的的历史输出（即使结果是"无"）
-- [ ] **A3** 已检查 active-tasks.md（即使结果是"新任务"）
+- [ ] **A3** 已检查 `.task-pulse`（即使结果是"新任务"）
 - [ ] **A4** 已输出 `[Preflight]` 段，包含取数计划
 - [ ] **A5** 已实际调用工具取数（不只是声称要取）
 
@@ -33,7 +35,7 @@
 - [ ] **D1** 输出已写入 [output-archive.md](output-archive.md) 规定的路径
 - [ ] **D2** 文件名符合命名规范（YYYY-MM-DD-skill-short.md）
 - [ ] **D3** 如果是覆盖标的，已更新该 ticker 的 INDEX.md
-- [ ] **D4** active-tasks.md 已更新（status / progress / output 字段）
+- [ ] **D4** `.task-pulse` 已更新（status / step / output 字段；active-tasks.md 仅 Librarian 历史归档时可选）
 
 ### E. 合规（治幻觉的硬约束）
 - [ ] **E1** 没有"确定会涨"、"已经确认"、"内部消息证实"等违禁表述
@@ -172,7 +174,7 @@
 
 ### sk-deck-builder 专属
 
-- [ ] preamble Step 2 已读取同标的最新的 sk-thesis / sk-company-deepdive 等研究底稿
+- [ ] preamble 已读取同标的最新的 sk-thesis / sk-company-deepdive 等研究底稿
 - [ ] 至少有一份 deepdive 或 thesis 作为内容来源（不能凭空生成 deck）
 - [ ] Slide 结构符合所选 deck_type 的标准（ic-pitch 10 页 / roadshow 6 页 等）
 - [ ] Slide 1（封面）包含：标的名、ticker、分析师、日期、conviction、免责声明
@@ -190,7 +192,7 @@
 ### sk-tape-review 专属
 
 - [ ] 7 段结构齐全：行情摘要 / 资金 / K 线形态 / 技术指标 / 关键位 / 一致性检验 / 明日观察
-- [ ] §1 行情数据带具体数字（涨跌幅 / 成交量 / 量比 / 换手率，全部 财报披露）
+- [ ] §1 行情数据带具体数字（涨跌幅 / 成交量 / 量比 / 换手率，全部 公开事实）
 - [ ] §3 K 线形态有明确判断（不只是描述）
 - [ ] §4 技术指标**带实际数值**（禁止凭印象写"金叉"）
 - [ ] §5 至少 2 个支撑位 + 2 个压力位

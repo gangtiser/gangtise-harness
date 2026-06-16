@@ -24,8 +24,8 @@ version: 0.1
 
 > ⛔ 本 skill 自创，但仍必须走 Investor Harness 的标准流程
 >
-> - 开始前：[`.claude/skills/investor-harness/core/preamble.md`](.claude/skills/investor-harness/core/preamble.md) 6 步
-> - 结束后：[`.claude/skills/investor-harness/core/postamble.md`](.claude/skills/investor-harness/core/postamble.md) 8 步
+> - 开始前：[`.claude/skills/investor-harness/core/preamble.md`](.claude/skills/investor-harness/core/preamble.md) 完整开始前流程
+> - 结束后：[`.claude/skills/investor-harness/core/postamble.md`](.claude/skills/investor-harness/core/postamble.md) 完整结束后流程
 > - 归档：[`.claude/skills/investor-harness/core/output-archive.md`](.claude/skills/investor-harness/core/output-archive.md)
 > - 验收：[`.claude/skills/investor-harness/core/acceptance.md`](.claude/skills/investor-harness/core/acceptance.md)
 >

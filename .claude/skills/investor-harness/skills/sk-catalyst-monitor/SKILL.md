@@ -1,6 +1,6 @@
 ---
 name: sk-catalyst-monitor
-description: 事件催化与财报前瞻 skill。用于跟踪政策、财报、价格、订单、产品发布、产业数据等催化剂，判断其对收入、利润、估值或情绪的影响，并输出短中期跟踪清单。
+description: 事件催化跟踪 skill。用于跟踪政策、价格、订单、产品发布、产业数据等催化剂，判断其对收入、利润、估值或情绪的影响，并输出短中期跟踪清单。财报前瞻/复盘请用 sk-earnings-preview。
 inputs:
   - 事件 / 新闻 / 政策 / 产业数据
   - 可选：相关公司或板块清单
@@ -12,20 +12,22 @@ markets: [CN-A, HK, US, GLOBAL]
 
 # SK Catalyst Monitor
 
-这个 skill 用于事件驱动研究和财报前瞻，不是简单新闻摘要。
+这个 skill 用于事件驱动研究（政策/订单/产品/产业数据等催化剂），不是简单新闻摘要。
+
+> **边界**：财报**前瞻/复盘**（一致预期、beat/miss 阈值、财报后检查清单）是 `sk-earnings-preview` 的专职，本 skill 不做。本 skill 只在"财报作为一个催化事件"层面跟踪其对命题的影响。
 
 ## 强制流程（v0.3 硬约束）
 
-> ⛔ **任何分析输出之前**，必须严格执行 [`../../core/preamble.md`](../../core/preamble.md) 的 5 步开始前流程
+> ⛔ **任何分析输出之前**，必须严格执行 [`../../core/preamble.md`](../../core/preamble.md) 的开始前流程
 >
-> ⛔ **任何输出完成之前**，必须严格执行 [`../../core/postamble.md`](../../core/postamble.md) 的 6 步结束后流程
+> ⛔ **任何输出完成之前**，必须严格执行 [`../../core/postamble.md`](../../core/postamble.md) 的结束后流程
 >
 > 输出归档按 [`../../core/output-archive.md`](../../core/output-archive.md) 命名规范
 > 输出验收按 [`../../core/acceptance.md`](../../core/acceptance.md) 清单逐条自检
 >
 > **跳过任何一环视为未完成任务。**
 
-Catalyst Monitor 特别注意：事件跟踪需要交叉多源（政策 + 公告 + 行业媒体），preamble Step 4 的 [Preflight] 必须列出至少 2 个独立信源。
+Catalyst Monitor 特别注意：事件跟踪需要交叉多源（政策 + 公告 + 行业媒体），preamble 的 [Preflight] 必须列出至少 2 个独立信源。
 
 ## 核心任务
 
@@ -45,11 +47,11 @@ Catalyst Monitor 特别注意：事件跟踪需要交叉多源（政策 + 公告
 
 ## 典型适用任务
 
-- 财报前瞻
 - 政策点评
 - 产业价格周跟踪
 - 新品发布影响分析
 - 订单 / 渠道 / 出货节奏变化跟踪
+- 财报作为催化事件的影响判断（前瞻本身 → sk-earnings-preview）
 
 ## 参考
 

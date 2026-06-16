@@ -19,18 +19,20 @@ markets: [CN-A, HK, US]
 
 目标不是重复一遍公司背景，而是回答"这次财报最该看什么，市场会对什么最敏感，什么结果会改变原来的投资命题"。
 
+> **边界**：财报**前瞻/复盘**走本 skill。非财报类催化事件（政策/订单/产品/产业数据）→ `sk-catalyst-monitor`。
+
 ## 强制流程（v0.3 硬约束）
 
-> ⛔ **任何分析输出之前**，必须严格执行 [`../../core/preamble.md`](../../core/preamble.md) 的 5 步开始前流程
+> ⛔ **任何分析输出之前**，必须严格执行 [`../../core/preamble.md`](../../core/preamble.md) 的开始前流程
 >
-> ⛔ **任何输出完成之前**，必须严格执行 [`../../core/postamble.md`](../../core/postamble.md) 的 6 步结束后流程
+> ⛔ **任何输出完成之前**，必须严格执行 [`../../core/postamble.md`](../../core/postamble.md) 的结束后流程
 >
 > 输出归档按 [`../../core/output-archive.md`](../../core/output-archive.md) 命名规范
 > 输出验收按 [`../../core/acceptance.md`](../../core/acceptance.md) 清单逐条自检
 >
 > **跳过任何一环视为未完成任务。**
 
-Earnings Preview 特别注意：preamble Step 4 的 [Preflight] 必须包含历史财务数据 + 一致预期 + 近期公告 + 行业同业数据 4 类。preamble Step 2 必须读取该公司最近一次 deepdive 和 thesis 输出作为基线。
+Earnings Preview 特别注意：preamble 的 [Preflight] 必须包含历史财务数据 + 一致预期 + 近期公告 + 行业同业数据 4 类。preamble 必须读取该公司最近一次 deepdive 和 thesis 输出作为基线。
 
 ## 适用场景
 
