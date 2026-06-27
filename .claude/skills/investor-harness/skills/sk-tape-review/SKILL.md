@@ -10,7 +10,7 @@ outputs:
 data_sources:
   - 见 ../../core/adapters.md
   - `gangtise quote day-kline`（日K线数据：开/高/低/收/量/额/涨跌幅）
-  - `gangtise quote minute-kline`（分钟级分时数据）
+  - `gangtise quote realtime` / `gangtise quote minute-kline`（盘中快照 / A股分钟级分时数据）
   - `gangtise ai security-clue`（异动事件/催化剂）
 markets: [CN-A, HK, US]
 ---
@@ -34,7 +34,7 @@ markets: [CN-A, HK, US]
 > **跳过任何一环视为未完成任务。**
 
 Tape Review 特别注意：
-- 数据源**必须**用 `gangtise quote day-kline`（最权威，含开/高/低/收/量/额/涨跌幅），未拉到则降级到公开网页
+- 历史日 K **必须**用 `gangtise quote day-kline` / `day-kline-hk` / `day-kline-us`（含开/高/低/收/量/额/涨跌幅），未拉到则降级到公开网页；盘中当前价用 `quote realtime`
 - 技术指标必须**真实计算或拉取**，**禁止凭印象编造**（如"MACD 金叉"必须有实际数据支撑）
 - preamble 必须读取该公司最近一次 sk-company-deepdive 和 sk-thesis 输出，用于 §6 一致性检验
 

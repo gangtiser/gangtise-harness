@@ -11,9 +11,9 @@ outputs:
   - 逐股基本面归因表（含卖方 / 行业 / 关键人物线索 / 相比前日变化）
 data_sources:
   - 见 ../../core/adapters.md
-  - gangtise quote day-kline（价格 / 量价）
+  - gangtise quote day-kline / day-kline-hk / day-kline-us（价格 / 量价；按市场选择，盘后取收盘）
   - gangtise ai security-clue（异动事件 / 卖方线索）
-  - gangtise insight announcement list（公告）+ gangtise ai hot-topic（资讯 / 行业主题）
+  - gangtise insight announcement / announcement-hk / announcement-us list（公告；按市场选择）+ gangtise ai hot-topic（资讯 / 行业主题）
   - gangtise ai knowledge-batch（研报 / 纪要 / 观点召回）
   - people-watch.md / ../../setup/workspace/people-watch.md.template
   - 公开 X / Reddit / Substack / Blog posts

@@ -12,6 +12,12 @@ Investor Harness 覆盖的市场范围与识别规则。
 | `US` | 美股 | 字母 ticker（AAPL, NVDA）、NYSE/NASDAQ、SEC filings | Gangtise OpenAPI → Tavily → WebSearch SEC → WebFetch EDGAR |
 | `GLOBAL` | 跨市场主题 | 行业 / 宏观 / 主题类问题 | 并行多市场 |
 
+## 证券代码格式
+
+- A 股：`.SH` / `.SZ` / `.BJ`，如 `600519.SH`
+- 港股：5 位数字 + `.HK`，如 `00700.HK`
+- 美股：`.O` / `.N` / `.A`，如 `NVDA.O` / `TSLA.O`
+
 ## 市场识别规则
 
 LLM 收到任务后，按以下顺序判断：

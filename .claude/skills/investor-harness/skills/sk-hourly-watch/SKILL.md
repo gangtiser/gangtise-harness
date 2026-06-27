@@ -12,9 +12,9 @@ outputs:
   - 背离清单（板块强但个股明显掉队）
 data_sources:
   - 见 ../../core/adapters.md
-  - gangtise quote minute-kline / day-kline（分时 / 涨跌 / 量价）
+  - gangtise quote realtime / minute-kline / day-kline（盘中快照 / A股分钟线 / 历史日K）
   - gangtise ai security-clue（异动事件 / 催化剂线索）
-  - gangtise insight announcement list（公告）+ gangtise ai hot-topic（资讯 / 主题）
+  - gangtise insight announcement / announcement-hk list（公告；按市场选择）+ gangtise ai hot-topic（资讯 / 主题）
 markets: [CN-A, HK]
 trigger: 用户明示"盯盘 / 看盘 / 每小时看一下 / 盘中异动 / 小时监控"
 schedule: 建议仅在连续交易时段（北京时间 09:30-11:30 / 13:00-15:00）每 30-60 分钟跑一次
@@ -71,6 +71,8 @@ Hourly Watch 特别注意：
 ### 第二步：四层扫描
 
 1. **价格层**
+   - 盘中当前价优先用 `gangtise quote realtime`；A股分钟走势可补 `minute-kline`
+   - `day-kline` / `day-kline-hk` / `day-kline-us` 只作历史日 K，不用来替代盘中实时数据
    - 当前涨跌幅
    - 相对上一轮的涨跌幅变化（加速 / 钝化 / 反转）
    - 是否接近涨停 / 跌停
@@ -155,4 +157,3 @@ Hourly Watch 特别注意：
 | **上游** | 可接 `sk-catalyst-sweep` 的盘前扫描结果，决定今天重点盯谁 |
 | **下游** | 红灯个股可继续调 `sk-catalyst-monitor` 做单点事件深挖 |
 | **互补** | `sk-tape-review` 负责盘后/技术面，`sk-hourly-watch` 负责盘中异动 |
-

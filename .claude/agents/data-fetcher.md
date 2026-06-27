@@ -15,7 +15,7 @@ tools: Bash, Read, Grep, Glob, WebSearch, WebFetch
 按 `.claude/skills/investor-harness/core/adapters.md` 的优先级链（A 股 / 港股 / 美股）：
 
 **A 股 / 公募**
-1. Gangtise OpenAPI（`gangtise fundamental / quote / insight / ai` —— 财务 / 行情 / 公告 / 估值 / 一致预期 / 知识库）
+1. Gangtise OpenAPI（`gangtise fundamental / quote / insight / ai / indicator / alternative / reference` —— 财务 / 行情 / 公告 / 估值 / 一致预期 / 知识库 / EDE / EDB / 代码与常量）
 2. 缓存优先（`.cache/{ticker}_{type}_{date}.json`，当日有效）
 3. Gangtise 知识库（`gangtise ai knowledge-batch`）
 4. Tavily（外部信息搜索兜底）
@@ -23,14 +23,14 @@ tools: Bash, Read, Grep, Glob, WebSearch, WebFetch
 6. 兜底：要求用户贴材料
 
 **港股**
-1. Gangtise OpenAPI（覆盖到的部分）
+1. Gangtise OpenAPI（`quote realtime/day-kline-hk`、`fundamental *-hk`、`insight announcement-hk`、知识库；EDE 可用，`scopeList` 会漏报市场，以小样本试取为准）
 2. Tavily (HKEX)
 3. WebFetch HKEX 官网
 4. WebSearch
 5. 兜底
 
 **美股**
-1. Gangtise OpenAPI（覆盖到的部分）
+1. Gangtise OpenAPI（`quote realtime/day-kline-us`、`fundamental *-us`、`insight announcement-us`、知识库；EDE 覆盖美股但入库晚于 `quote`，最近交易日可能 `null`，最新行情优先 `realtime`/`day-kline-us`）
 2. Tavily
 3. WebSearch + SEC EDGAR
 4. WebFetch sec.gov

@@ -34,6 +34,7 @@ knowledge-index.md
 # ---- 个人本地配置（含放权设置，不入库）----
 **/settings.local.json
 AGENTS.md
+.obsidian/
 
 # ---- 备份 ----
 .claude/skills/investor-harness.bak-*

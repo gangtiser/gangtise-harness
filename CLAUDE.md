@@ -150,7 +150,7 @@ LLM 在每次输出前估算剩余 context budget：
 
 按 Investor Harness `.claude/skills/investor-harness/core/adapters.md` 的优先级取数：
 
-1. Gangtise OpenAPI（全市场主数据源 · A股/港股/美股；证券代码须带 `.SH`/`.SZ` 后缀，如 `688256.SH`）
+1. Gangtise OpenAPI（全市场主数据源 · A股/港股/美股；A股 `.SH`/`.SZ`/`.BJ`，港股 5 位 + `.HK`，美股 `.O`/`.N`/`.A`，如 `688256.SH` / `00700.HK` / `NVDA.O`）
 2. **缓存优先**（`.cache/{ticker}_{type}_{date}.json`，当日有效）
 3. Gangtise 知识库搜索（knowledge-batch，研报/纪要/公告）
 4. Tavily MCP（外部信息搜索）
