@@ -2,9 +2,9 @@
 
 > 所有 sk-* skill 与研究流水线统一按本文件取数。**充分利用 Gangtise OpenAPI 的全部覆盖**——能用 Gangtise 取到的就不要走外部；外部（Tavily/WebSearch）只作兜底。
 >
-> CLI：`gangtise`（gangtise-openapi-cli，本文件基于 **v0.20.0**，2026-06-27）。
+> CLI：`gangtise`（gangtise-openapi-cli，本文件基于 **v0.22.0**，2026-07-02）。
 > **严格参数校验**（自 v0.17.0）：传未声明的 `--xxx` 会被 commander 拒为 `unknown option`。**精确参数以 `gangtise <group> <cmd> --help` 为准**；个别 leaf 的 `--help` 会回落顶层帮助，此时查仓库文档 <https://github.com/gangtiser/gangtise-openapi-cli> 或 `gangtise-openapi` skill 的 `references/commands/<group>.md`。
-> **v0.18–v0.20 新增（本文件已补录）**：`indicator`（EDE 证券级数据指标）整组、美股三表（`fundamental *-us`）、美股公告（`insight announcement-us`）、产业公众号（`insight official-account`）、个股看点（`ai stock-summary`）、首席 ID 搜索（`reference chiefs-search`）。
+> **v0.18–v0.22 对齐（本文件已补录）**：`indicator`（EDE 证券级数据指标）整组、美股三表（`fundamental *-us`）、美股公告（`insight announcement-us`）、产业公众号（`insight official-account`）、个股看点（`ai stock-summary`）、首席 ID 搜索（`reference chiefs-search`）；同时吸收 v0.21/v0.22 的自动翻页、partial 结果、下载输出、token 自愈与重试语义。
 
 ---
 
@@ -15,6 +15,17 @@
 3. **缓存复用**：同一天同一标的的数据直接读 `.cache/`，不重复调 API
 4. **知识库优先**：先用 `ai knowledge-batch`，搜不到再用 Tavily/WebSearch
 5. **精简字段**：`--field` 只选需要的，减少传输和解析
+
+---
+
+## v0.22 执行约束
+
+- **自动翻页**：自动翻页接口省略 `--size` 会拉全量，不再因传了时间范围而限制默认条数。日常列表查询必须显式传 `--size N`；数据量未知时先用 `--size 1` 从 stderr 的 `Total` 探量级，再决定是否全量拉取。
+- **partial 结果**：翻页页失败、K 线分片失败或服务端短页时，JSON 会带 `partial: true`，并可能带 `failedPages` / `failedShards`；非 JSON 行式输出会以退出码 3 标记。研究输出可保留已取数据，但必须写明"部分结果 / 待补拉"，不得当作完整样本。
+- **token / retry**：CLI 已自愈 token 踢线、HTTP 4xx 错误信封，并自动重试 429、DNS/网络临时错误和 undici 超时。不要在 skill 里重复手写重试循环；若 CLI 仍失败，保留原始错误与命令。
+- **下载输出**：`download --output` 会跟随最多 3 次跳转并实际落文件；跨域对象存储签名 URL 不带 Authorization。下载后仍需检查目标路径、文件大小与格式，不只看命令退出状态。
+- **日期窗口**：`fundamental earning-forecast` 省略 `--start-date` 且传了 `--end-date` 时，v0.22 会按 `end-date - 1 year` 计算起点；若要比较固定预测窗口，仍显式传 `--start-date` / `--end-date`。
+- **raw / format**：`raw call` 会本地拒绝 JSON endpoint 的 `--query` 和 download endpoint 的 `--body`，`--format` 会在请求前校验。拼错格式不会消耗接口调用，但也不能把本地校验错误当成远端无数据。
 
 ---
 
@@ -68,7 +79,7 @@
 | **公告** | `announcement list`+`download` · `announcement-hk` · `announcement-us`+`download` | A股 / 港股 / 美股公告 |
 | **公众号** | `official-account list`+`download` | 产业公众号资讯（`--category news/report/view…` 多选 · `--account-id` 限定账号）|
 
-通用过滤参数（v0.20.0）：
+通用过滤参数（v0.22.0 实测沿用）：
 
 - **观点 / 研报通用**（`opinion list` / `research list` / `summary list` / `foreign-opinion list` / `independent-opinion list` / `foreign-report list`）：`--security <code>` `--start-time` `--end-time` `--keyword` `--rank-type`（1 综合 / 2 时间倒序）`--broker` `--industry` `--concept` `--rating` `--source` `--size` `--from` `--format json`
 - **研报独有**（`research list`）：`--search-type`（1 标题 / 2 全文）`--rating-change` `--min-pages/--max-pages`
@@ -100,7 +111,7 @@
 | `management-discuss-announcement` / `-earnings-call` | 管理层讨论（公告 / 业绩会）| earnings-preview / deepdive |
 | `knowledge-resource-download` | 下载知识库资源原文 | — |
 
-调用范式（v0.20.0）：`one-pager` / `investment-logic` / `peer-comparison` / `research-outline` = `--security-code <code> --format json`；`stock-summary` = `--security <code>` 或 `--security aShares|hkStocks`；`knowledge-batch` = `--query "{标的} {关键词}" --resource-type 10 --resource-type 60 --top 15 --format json`；`security-clue` = `--gts-code <证券代码或申万行业代码> --start-time "<datetime>" --end-time "<datetime>" --query-mode bySecurity|byIndustry --format json`。其余精确参数见 `gangtise ai <cmd> --help`（个别 --help 会回落顶层，可试运行）。
+调用范式（v0.22.0 实测沿用）：`one-pager` / `investment-logic` / `peer-comparison` / `research-outline` = `--security-code <code> --format json`；`stock-summary` = `--security <code>` 或 `--security aShares|hkStocks`；`knowledge-batch` = `--query "{标的} {关键词}" --resource-type 10 --resource-type 60 --top 15 --format json`；`security-clue` = `--gts-code <证券代码或申万行业代码> --start-time "<datetime>" --end-time "<datetime>" --query-mode bySecurity|byIndustry --format json`。其余精确参数见 `gangtise ai <cmd> --help`（个别 --help 会回落顶层，可试运行）。
 
 ### 宏观 / 概念 — `gangtise alternative`
 | 命令 | 用途 |
@@ -199,4 +210,6 @@ gangtise ai security-clue --gts-code {code} --start-time "{start_datetime}" --en
 - ✅ **代码先解析**：不确定代码先 `reference securities-search`
 - ✅ **常量先解析**：传 `--category` / `--industry` / `--research-area` 等需要 ID 的参数前，先 `reference constant-list --category <name>` 拿合法 ID（严格校验，错 ID 会被拒）
 - ✅ **最近 K 线先拉窗口再截尾**：不要用裸 `--limit N` 代表最近 N 条；盘中当前价用 `quote realtime`
+- ✅ **列表显式限量**：v0.22 自动翻页接口省略 `--size` 会拉全量；普通研究列表必须显式传 `--size N`，全量任务先探 `Total`
+- ✅ **partial 不算完整成功**：遇 `partial: true`、`failedPages`、`failedShards` 或退出码 3，要标注部分结果并安排补拉
 - ❌ 不串行等所有数据拉完再分析 · ❌ 不重复拉当日已缓存数据 · ❌ 不把知识库转述数字当财报披露
