@@ -8,7 +8,7 @@ version: 0.9.2-gangtise
 description: 投研人的 AI 任务执行规范。28 个 sk-* skill + 5 个研究流水线 subagent，强制 LLM 在做投研工作时不出现幻觉、不丢失上下文、不输出杂乱。数据源统一走 Gangtise OpenAPI，证据分级用完整中文标签。
 license: MIT
 upstream: https://github.com/joansongjr/investor-harness
-last_synced: 2026-06-14
+last_synced: 2026-06-27
 
 # 三大痛点 + 上下文溢出保护
 solves:
@@ -22,7 +22,7 @@ data_sources:
   primary:
     - name: gangtise-openapi
       cli: gangtise
-      description: 行情/财务/估值/一致预期/股东/主营/公告/AI能力(知识库·线索·主题·一页通)
+      description: 行情/财务/估值/一致预期/股东/主营/公告/产业公众号/证券级指标(EDE)/AI能力(知识库·线索·主题·一页通)
       note: 证券代码须带交易所后缀（如 688256.SH / 002384.SZ）
   fallback:
     - name: tavily

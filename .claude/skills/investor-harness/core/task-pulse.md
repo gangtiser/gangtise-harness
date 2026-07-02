@@ -52,7 +52,7 @@
 | `tasks[].id` | string | 任务唯一 id（短格式 t-NNN） |
 | `tasks[].skill` | string | skill 简称（按 output-archive.md 简称表） |
 | `tasks[].target` | string | 标的（ticker_name 或 theme-slug） |
-| `tasks[].step` | string | 进度（"6/9" 表示完成 6 段中的 9 段） |
+| `tasks[].step` | string | 进度（"6/9" 表示 9 段中已完成 6 段） |
 | `tasks[].ckpt` | string | 该任务的 checkpoint 文件路径 |
 | `compacted` | bool | 上次会话是否被 compact 过 |
 | `warn` | string\|null | 上下文预警信息（context budget 剩余 < 30k 时设置） |

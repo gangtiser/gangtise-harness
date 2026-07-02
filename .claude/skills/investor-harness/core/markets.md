@@ -6,7 +6,7 @@ Investor Harness 覆盖的市场范围与识别规则。
 
 | 标签 | 市场 | 识别特征 | 主要数据源 |
 |---|---|---|---|
-| `CN-A` | A 股（沪深） | 6 位数字代码（6xxxxx/0xxxxx/3xxxxx）、中文公司名、"股份有限公司" | Gangtise OpenAPI → Tavily → WebSearch |
+| `CN-A` | A 股（沪深京） | 6 位数字代码（沪 6xxxxx、深 0xxxxx/3xxxxx、北交所 8xxxxx/4xxxxx/9xxxxx）、中文公司名、"股份有限公司" | Gangtise OpenAPI → Tavily → WebSearch |
 | `CN-FUND` | 公募基金 | 6 位代码以 0/1/5 开头、"基金"字样 | Gangtise OpenAPI → Tavily |
 | `HK` | 港股 | 4-5 位数字代码、HKEX、港交所、中文/英文混合 | Gangtise OpenAPI → Tavily → WebFetch HKEX |
 | `US` | 美股 | 字母 ticker（AAPL, NVDA）、NYSE/NASDAQ、SEC filings | Gangtise OpenAPI → Tavily → WebSearch SEC → WebFetch EDGAR |
@@ -15,7 +15,7 @@ Investor Harness 覆盖的市场范围与识别规则。
 ## 证券代码格式
 
 - A 股：`.SH` / `.SZ` / `.BJ`，如 `600519.SH`
-- 港股：5 位数字 + `.HK`，如 `00700.HK`
+- 港股：5 位数字 + `.HK`，如 `00700.HK`（不足 5 位前补 0，如 `700` → `00700.HK`；4 位裸码 `0700.HK` 会返空）
 - 美股：`.O` / `.N` / `.A`，如 `NVDA.O` / `TSLA.O`
 
 ## 市场识别规则

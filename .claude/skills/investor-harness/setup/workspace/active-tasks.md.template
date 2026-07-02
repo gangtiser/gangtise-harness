@@ -33,7 +33,7 @@
 - **progress**: 已完成市场关注三个问题 + 敏感变量表，需补管理层指引听点
 - **blocker**: 无
 - **next_step**: 拉最近 2 次业绩会 transcript 完成指引听点段
-- **expected_output**: coverage/68XXXX_示例代工/earnings/2026-Q4-preview.md
+- **expected_output**: coverage/68XXXX_示例代工/earnings/{YYYY-MM-DD}-earnings-preview.md
 - **last_touched**: 2026-04-06 22:15
 
 ---

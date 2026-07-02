@@ -59,7 +59,7 @@
 
 ### 结束后 · Postamble
 读 `{{HARNESS_PATH}}/core/postamble.md`：
-- 归档输出到 `{{COVERAGE_ROOT}}/{ticker}/{skill}/YYYY-MM-DD-{skill}.md` + 更新 `.task-pulse`
+- 归档输出到 `{{COVERAGE_ROOT}}/{ticker}_{name}/{目录名}/YYYY-MM-DD-{skill-short}.md`（目录名与文件短名不一定相同，均见 output-archive.md）+ 更新 `.task-pulse`
 - "仍需补的资料"段非空 + 简化合规声明
 - **Dual Output Discipline** — 对话**贴完整输出** + 同时写文件；末尾追加 `📁 已归档:{path}` + 关键统计 + 下一步建议
 - checkpoint **只在 context budget 紧张（剩余 < 10k）时写**；active-tasks.md 默认**不写**；acceptance.md 默认**抽查**，仅 Librarian / 重大交付 / 用户要求时强制

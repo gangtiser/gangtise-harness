@@ -24,14 +24,14 @@ schedule: 建议仅在连续交易时段（北京时间 09:30-11:30 / 13:00-15:0
 
 这个 skill 解决的是"股票池太大，盘中没法每只都盯"的问题。目标不是做分钟级交易，而是把**真正值得你人工介入的盘中变化**筛出来。
 
-## 强制流程（v0.1 硬约束）
+## 强制流程（硬约束）
 
 > ⛔ **任何分析输出之前**，必须严格执行 [`../../core/preamble.md`](../../core/preamble.md) 的开始前流程
 >
 > ⛔ **任何输出完成之前**，必须严格执行 [`../../core/postamble.md`](../../core/postamble.md) 的结束后流程
 >
 > 输出归档按 [`../../core/output-archive.md`](../../core/output-archive.md) 命名规范
-> 输出验收按 [`../../core/acceptance.md`](../../core/acceptance.md) 清单逐条自检
+> 输出验收按 [`../../core/acceptance.md`](../../core/acceptance.md)（默认抽查；Librarian / 对外重大交付 / 用户要求时全量自检）
 >
 > **跳过任何一环视为未完成任务。**
 
@@ -57,7 +57,7 @@ Hourly Watch 特别注意：
 
 ## 监控框架
 
-### 第一步：定义本轮与上轮
+### 定义本轮与上轮
 
 ```
 [Preflight - Hourly Watch]
@@ -68,7 +68,7 @@ Hourly Watch 特别注意：
 重点告警：涨停/接近涨停、放量加速、逆势背离、公告催化
 ```
 
-### 第二步：四层扫描
+### 四层扫描
 
 1. **价格层**
    - 盘中当前价优先用 `gangtise quote realtime`；A股分钟走势可补 `minute-kline`
@@ -91,7 +91,7 @@ Hourly Watch 特别注意：
    - 强势主线是光模块、PCB、交换机还是算力芯片
    - 个股是跟涨、领涨，还是逆势掉队
 
-### 第三步：只分两类
+### 只分两类
 
 #### 红灯
 

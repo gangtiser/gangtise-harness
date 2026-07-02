@@ -1,6 +1,6 @@
 ---
 name: sk-daily-feed
-description: Librarian 模式下每天扫 vault 生成 7 桶 daily feed，刷新每家 focus list 公司 wiki page 的 §4 Key Take-Away。让 wiki 从静态笔记变成活的信息流。v0.7.0 新增。
+description: Librarian 模式下每天扫 vault 生成 7 桶 daily feed，刷新每家 focus list 公司 wiki page 的 §4 Key Take-Away。让 wiki 从静态笔记变成活的信息流。
 inputs:
   - vault 路径
   - focus list（holdings + coverage）

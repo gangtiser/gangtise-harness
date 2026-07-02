@@ -157,8 +157,8 @@ version: 0.1
 
 > ⛔ 本 skill 自创但**仍然**遵守 Investor Harness 的核心流程。
 >
-> 开始前：[`.claude/skills/investor-harness/core/preamble.md`](.claude/skills/investor-harness/core/preamble.md) 完整开始前流程
-> 结束后：[`.claude/skills/investor-harness/core/postamble.md`](.claude/skills/investor-harness/core/postamble.md) 完整结束后流程
+> 开始前：`../../.claude/skills/investor-harness/core/preamble.md`（从 user-skills/{你的 skill}/ 相对）完整开始前流程
+> 结束后：`../../.claude/skills/investor-harness/core/postamble.md` 完整结束后流程
 > 归档：按 `.claude/skills/investor-harness/core/output-archive.md` 命名规范
 > 验收：按 `.claude/skills/investor-harness/core/acceptance.md` 清单
 
@@ -186,7 +186,7 @@ version: 0.1
 
 ### §1 一句话判断
 - "值得打 / 不建议 / 需要进一步信息"
-- 给出建议的中签比例（如 10-30%）
+- 给出参与可行性（高 / 中 / 低，不给具体比例数字，规模由投资决策人定）
 
 ### §2 基本信息
 - 代码 / 名称 / 所属行业
@@ -216,7 +216,7 @@ version: 0.1
 - 建议策略：
   - 不打
   - 现金打
-  - 杠杆打（具体杠杆倍数）
+  - 杠杆参与（高风险，倍数由投资决策人定，不给具体数字）
 - 暗盘出货 vs 首日出货 vs 持有 3 月
 
 ### §7 仍需补的资料
@@ -228,7 +228,7 @@ version: 0.1
 
 - 所有"首日涨跌"、"暗盘预期"类判断必须标 待核验假设（待验证）
 - 不给"必中"、"必破发"等武断表述
-- 涉及"建议杠杆 N 倍"必须带"需人工复核"标注
+- 不输出具体杠杆倍数 / 参与规模数字，只给可行性 / 风险分层，规模由投资决策人定
 - 港股通规则（如适用）必须显式说明
 
 ## 触发方式

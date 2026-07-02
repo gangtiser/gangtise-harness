@@ -26,7 +26,7 @@ coverage_scope: watchlist
 - 从 `coverage.md` 读覆盖池
 - 从 news MCP 拉近 12 小时资讯（优先海外隔夜 + 国内早盘公告）
 - 从 `watchlist.md` 读重点关注标的
-- 从 `active-tasks.md` 读未完成任务
+- 从 `.task-pulse`（+ `.checkpoint`）读在途 / 未完成任务；长期任务历史才读 `active-tasks.md`
 
 ## 输出结构（5 段，严格）
 
@@ -60,7 +60,7 @@ HH:MM  {事件名}  关联标的  预期关注点
 
 ### 4. 待我决策的事项
 
-从 active-tasks.md 里提取 status=blocked 或 deadline=today 的任务。
+从 `.task-pulse` 提取在途 / blocked 任务，从 `research-queue.md` 取 deadline=today 项（长期任务历史才查 active-tasks.md）。
 不要编造，只列真实存在的 action items。
 
 ### 5. 一句话给自己

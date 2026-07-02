@@ -19,24 +19,21 @@
 
 每个 sk-* skill 必须遵循以下规则：
 
-### Rule 1：长任务每完成一个 H2 段就写 checkpoint
+### Rule 1：context 预算紧张时，长任务按段写 checkpoint
 
-多段长任务（如 sk-company-deepdive 9 段）不要等任务全部完成才写文件——每完成一段就更新 checkpoint，保证中途被打断也能续跑。
+多段长任务（如 sk-company-deepdive 9 段）在 context 预算紧张（见 Rule 3）时，每完成一段就更新 checkpoint，保证中途被打断也能续跑。
 
-例：sk-company-deepdive 9 段，每完成 §1、§2、§3... 都更新 checkpoint。
+> 预算充裕时**不必每段写**：常规收尾按 [postamble.md](postamble.md) 走。这与 postamble.md、CLAUDE.md §1.6「checkpoint 只在剩余 < 10k 时写」是同一口径——按段高频写只发生在预算已经紧张的长任务里，不是每段都写。
 
-> 短任务 / 单段输出**不必每段写**：常规收尾按 [postamble.md](postamble.md) 走，checkpoint 主要由 Rule 3 的 context 预算紧张时触发。
+### Rule 2：取到大量关键数据后可写 checkpoint
 
-### Rule 2：每次取数后写 checkpoint
+如果一次 Gangtise OpenAPI 调用返回了大量关键数据、且任务还长，可顺手写入 checkpoint 避免丢失——这不是每次取数都强制，仍以 Rule 3 的预算触发为主。
 
-如果一次 Gangtise OpenAPI 调用返回了关键数据，立即写入 checkpoint，避免数据丢失。
+### Rule 3：context budget 紧张时写 checkpoint（唯一强制口径，对齐 CLAUDE.md §1.6）
 
-### Rule 3：context budget 警告时强制写 checkpoint
-
-LLM 估算到剩余 context < 30k tokens 时，必须立即：
-1. 写完当前段的 checkpoint
-2. 告知用户"已写入 checkpoint，建议开新会话续跑"
-3. 不再继续新段
+LLM 按"剩余"预算判断（不按绝对已用量，以适配不同 context 窗口的模型）：
+- 剩余 < 30k tokens → 写当前段 checkpoint + 提醒"建议本任务跑完后开新会话"，**可继续**
+- 剩余 < 10k tokens → 立即写 checkpoint + 告知"已写入，开新会话用'继续 {id}'续跑"，**不再继续新段**
 
 ---
 

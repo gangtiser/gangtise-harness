@@ -1,4 +1,4 @@
-# Postamble · 强制结束后流程（优化版 v0.5）
+# Postamble · 强制结束后流程
 
 > 所有 sk-* skill 在产生分析输出**之后**，按本文件完成。
 > **v0.5 改动**：合并步骤、去掉 acceptance 强制检查、inline 证据标注。
@@ -8,9 +8,9 @@
 ## Step 1 · 归档 + 更新任务状态（合并）
 
 **一句话执行**：
-1. 写文件到归档路径 `coverage/{ticker}/{skill}/{YYYY-MM-DD}-{skill}.md`
+1. 写文件到归档路径（按 [output-archive.md](output-archive.md) 目录结构 + 命名）：`{coverage_root}/{ticker}_{name}/{目录名}/{YYYY-MM-DD}-{skill-short}.md`（目录名如 `deepdive/` `red-team/` `pm-brief/`，文件短名如 `deepdive`/`redteam`/`pmbrief`，二者不一定相同，均见 output-archive.md）
 2. 更新 `.task-pulse`：状态 done，删除 checkpoint
-3. 更新 `coverage/{ticker}/INDEX.md`：last_updated、latest_outputs
+3. 更新 `{coverage_root}/{ticker}_{name}/INDEX.md`：last_updated、latest_outputs
 
 **不做的事**：
 - ❌ 不写 `active-tasks.md`（.task-pulse 已足够）

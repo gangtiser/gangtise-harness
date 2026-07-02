@@ -17,14 +17,14 @@ markets: [CN-A, HK, US]
 
 这个 skill 用于**财报季的批量前瞻或复盘**——分析师团队在财报季最痛的时间窗。
 
-## 强制流程（v0.3 硬约束）
+## 强制流程（硬约束）
 
 > ⛔ **任何分析输出之前**，必须严格执行 [`../../core/preamble.md`](../../core/preamble.md) 的开始前流程
 >
 > ⛔ **任何输出完成之前**，必须严格执行 [`../../core/postamble.md`](../../core/postamble.md) 的结束后流程
 >
 > 输出归档按 [`../../core/output-archive.md`](../../core/output-archive.md) 命名规范
-> 输出验收按 [`../../core/acceptance.md`](../../core/acceptance.md) 清单逐条自检
+> 输出验收按 [`../../core/acceptance.md`](../../core/acceptance.md)（默认抽查；Librarian / 对外重大交付 / 用户要求时全量自检）
 >
 > **跳过任何一环视为未完成任务。**
 
@@ -38,7 +38,7 @@ Batch Earnings 特别注意：每家公司的子任务必须**完整调用 `sk-e
 
 ## 工作流程
 
-### 第一步：拉取财报日历
+### 拉取财报日历
 
 通过 Gangtise OpenAPI，拉出指定时间窗内的全部财报发布日：
 
@@ -51,14 +51,14 @@ Batch Earnings 特别注意：每家公司的子任务必须**完整调用 `sk-e
 | 2026-04-12 | NVDA | NVIDIA | FY26 Q1 |
 ```
 
-### 第二步：按公司逐个跑完整 sk-earnings-preview
+### 按公司逐个跑完整 sk-earnings-preview
 
 对每家公司：
 - 调 `sk-earnings-preview` 完整流程
 - 输出按 sk-earnings-preview 的结构
-- 单家归档到 `{coverage_root}/{ticker}/earnings/{YYYY-QN}-preview.md`
+- 单家归档到 `{coverage_root}/{ticker}_{name}/earnings/{YYYY-MM-DD}-earnings-preview.md`（财报点评用 `-earnings-postmortem`）
 
-### 第三步：生成总体节奏摘要
+### 生成总体节奏摘要
 
 在每家完成后，汇总成一份"财报季节奏摘要"：
 
@@ -78,12 +78,12 @@ Batch Earnings 特别注意：每家公司的子任务必须**完整调用 `sk-e
 - 🟡 {ticker}：{为什么}
 
 ## 各家详细前瞻链接
-- [688256 寒武纪 Q1 Preview](coverage/688256_寒武纪/earnings/2026-Q1-preview.md)
-- [688981 中芯国际 Q4 Preview](coverage/688981_中芯国际/earnings/2026-Q4-preview.md)
+- 688256 寒武纪 Q1 Preview → `{coverage_root}/688256_寒武纪/earnings/{YYYY-MM-DD}-earnings-preview.md`
+- 688981 中芯国际 Q4 Preview → `{coverage_root}/688981_中芯国际/earnings/{YYYY-MM-DD}-earnings-preview.md`
 - ...
 ```
 
-### 第四步（可选）：复盘模式
+### 复盘模式（可选）
 
 如果是 postmortem 模式，对每家发布后的公司：
 - 实际 vs 一致预期
@@ -109,7 +109,7 @@ Batch Earnings 特别注意：每家公司的子任务必须**完整调用 `sk-e
 ## 性能与节流
 
 - 大批量任务（>10 家）建议拆批执行
-- 在 active-tasks.md 记录"批次进度"，断点续做
+- 在 `.task-pulse` 写简要进度 + `.checkpoint/{task-id}.md` 记批次 N/M 明细，断点续做
 - 单次会话不超过 20 家，超过分多个会话
 
 ## 参考

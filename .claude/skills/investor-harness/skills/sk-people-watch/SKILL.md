@@ -22,14 +22,14 @@ trigger: 用户明示"关键人物追踪 / 跟踪 X 博主 / 跟踪 Reddit / 跟
 
 这个 skill 不是为了把社交媒体当事实来源，而是为了把**值得持续看的信号源**结构化管理起来。
 
-## 强制流程（v0.2 硬约束）
+## 强制流程（硬约束）
 
 > ⛔ **任何分析输出之前**，必须严格执行 [`../../core/preamble.md`](../../core/preamble.md) 的开始前流程
 >
 > ⛔ **任何输出完成之前**，必须严格执行 [`../../core/postamble.md`](../../core/postamble.md) 的结束后流程
 >
 > 输出归档按 [`../../core/output-archive.md`](../../core/output-archive.md) 命名规范
-> 输出验收按 [`../../core/acceptance.md`](../../core/acceptance.md) 清单逐条自检
+> 输出验收按 [`../../core/acceptance.md`](../../core/acceptance.md)（默认抽查；Librarian / 对外重大交付 / 用户要求时全量自检）
 
 People Watch 特别注意：
 
@@ -45,7 +45,7 @@ People Watch 特别注意：
 - "哪些关键人物最近观点变了"
 - "把人、平台、主题和股票池挂起来"
 
-## 默认起始名单（v0.2 新增）
+## 默认起始名单（新增）
 
 如果工作区已经有 `people-watch.md`，优先复用用户自己的名单。
 
@@ -57,7 +57,7 @@ People Watch 特别注意：
 
 如果用户明确点名要补某个对象（例如 `C-Tronic`），但当前名单没有 exact handle，先在 `people-watch.md` 的待核对区登记，再继续扫描。
 
-## 模糊搜索规则（v0.3 新增）
+## 模糊搜索规则（新增）
 
 用户不需要每次都提供 exact handle。以下说法都应默认路由到 `sk-people-watch`：
 

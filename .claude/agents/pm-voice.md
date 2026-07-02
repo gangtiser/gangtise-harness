@@ -28,7 +28,7 @@ tools: Read, Grep, Glob
 ## PM Brief
 
 **Target**: [标的]
-**Recommended Action**: [BUY / SELL / HOLD / WAIT / SKIP]
+**Recommended Action（研究倾向，非交易指令 · 需投资决策人复核）**: [BUY / SELL / HOLD / WAIT / SKIP]
 **Conviction Level**: [High / Medium / Low]
 **Time Horizon**: [3M / 6M / 12M / 长期]
 

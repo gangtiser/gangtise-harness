@@ -1,4 +1,4 @@
-# Data Adapters · Gangtise 数据接口全景 + 取数策略（v0.7）
+# Data Adapters · Gangtise 数据接口全景 + 取数策略
 
 > 所有 sk-* skill 与研究流水线统一按本文件取数。**充分利用 Gangtise OpenAPI 的全部覆盖**——能用 Gangtise 取到的就不要走外部；外部（Tavily/WebSearch）只作兜底。
 >
@@ -20,7 +20,7 @@
 
 ## 证券代码格式 & 代码查询
 
-- **代码必带交易所后缀（实测）**：A股沪市 `.SH` / 深市 `.SZ`（如 `600000.SH`）；**港股 5 位 + `.HK`**（如 `00700.HK`，4 位 `0700.HK` 返空）；**美股 `.O`（纳斯达克）/ `.N`（纽交所）**，如 `AAPL.O`、`NVDA.O`——**不是 `.US`**。裸代码在 `fundamental` 报 `430009 非有效A股`、在 `quote` 返回空。
+- **代码必带交易所后缀（实测）**：A股沪市 `.SH` / 深市 `.SZ`（如 `600000.SH`）、北交所 `.BJ`（8xx/4xx/9xx 开头，本 CLI 版本少实测，取数前先用 `reference securities-search` 确认 `gtsCode`）；**港股 5 位 + `.HK`**（如 `00700.HK`，不足 5 位先补 0，4 位 `0700.HK` 返空）；**美股 `.O`（纳斯达克）/ `.N`（纽交所）/ `.A`（NYSE American，少见、少实测）**，如 `AAPL.O`、`NVDA.O`——**不是 `.US`**。裸代码在 `fundamental` 报 `430009 非有效A股`、在 `quote` 返回空。
 - **不确定代码 / 只知公司名** → 先查 `gangtise reference securities-search --keyword "{公司名}" --category stock --top 3 --format json`（返回 `gtsCode`；若匹配分低或多市场重名，先让用户选）。`gangtise lookup` 自 v0.16 起仅保留 `broker-org` / `meeting-org`，原行业/区域/题材/公告分类已由 `reference constant-list` / `concept-search` / `sector-constituents` 覆盖。
 
 ---

@@ -33,10 +33,10 @@
 │   │   └── 2026-08-20-deepdive-update.md
 │   │
 │   ├── earnings/                     ← sk-earnings-preview 输出
-│   │   ├── 2026-Q1-preview.md
-│   │   ├── 2026-Q1-postmortem.md
-│   │   ├── 2026-Q2-preview.md
-│   │   └── 2026-Q2-postmortem.md
+│   │   ├── 2026-04-07-earnings-preview.md
+│   │   ├── 2026-04-07-earnings-postmortem.md
+│   │   ├── 2026-07-15-earnings-preview.md
+│   │   └── 2026-07-15-earnings-postmortem.md
 │   │
 │   ├── catalysts/                    ← sk-catalyst-monitor 输出
 │   │   └── 2026-04-07-event-{name}.md
@@ -100,7 +100,7 @@
 | 字段 | 说明 | 示例 |
 |---|---|---|
 | `YYYY-MM-DD` | 必填，输出当天日期 | `2026-04-07` |
-| `skill-short` | skill 的简称 | `deepdive` / `thesis` / `preview` |
+| `skill-short` | skill 的简称（见下表） | `deepdive` / `thesis` / `earnings` |
 | `descriptor` | 可选，区分同日多次输出 | `update` / `postmortem` / `q4-special` |
 
 ### Skill 简称对照表
@@ -135,6 +135,8 @@
 | `sk-qa-archive` | `qa` |
 | `sk-wiki-build` | `wiki` |
 | `sk-health-check` | `health` |
+
+> **目录名 ≠ 文件短名**：一级子目录用可读的连字符形式，文件名才用上表 short name。二者刻意不同的：`red-team/`（短名 `redteam`）、`pm-brief/`（`pmbrief`）、`catalysts/`（`catalyst`）、`model/`（`modelcheck`）；其余目录名 = short name。**完整路径** = `{ticker}_{name}/{目录名}/{YYYY-MM-DD}-{short}.md`。
 
 ### Ticker 目录命名
 
@@ -182,7 +184,7 @@ skills 在归档前必须读 CLAUDE.md 拿到这两个值。
 **latest_outputs**:
   - thesis: thesis/2026-04-07-thesis.md
   - deepdive: deepdive/2026-04-07-deepdive.md
-  - earnings: earnings/2026-Q1-preview.md
+  - earnings: earnings/2026-04-07-earnings-preview.md
   - red-team: red-team/2026-04-07-redteam.md
 **next_catalysts**:
   - 2026-05-XX 公司业绩会
@@ -207,7 +209,7 @@ INDEX.md 是 LLM **每次** preamble 检查的首要文件。
 
 ---
 
-## 团队场景（v0.4 预留）
+## 团队场景（预留）
 
 未来团队版会增加：
 - `coverage_root` 区分 `team-coverage/` vs `personal-coverage/`

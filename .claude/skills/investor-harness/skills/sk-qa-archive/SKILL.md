@@ -1,6 +1,6 @@
 ---
 name: sk-qa-archive
-description: 会后归档 skill。把 question list 转成 Q&A 存档，并触发 wiki 级联更新——新数据更新对应段落、Key Take-Away 刷新、催化剂日历加入分析师提到的时间节点、Next steps 从"还缺什么"自动生成。完整链路：问之前知道什么 → 问了什么 → 得到了什么 → 还缺什么，全部可追溯。v0.7.0 新增。
+description: 会后归档 skill。把 question list 转成 Q&A 存档，并触发 wiki 级联更新——新数据更新对应段落、Key Take-Away 刷新、催化剂日历加入分析师提到的时间节点、Next steps 从"还缺什么"自动生成。完整链路：问之前知道什么 → 问了什么 → 得到了什么 → 还缺什么，全部可追溯。
 inputs:
   - vault/{ticker}/question-list-{YYYY-MM-DD}.md（sk-question-list 的产物）
   - 会议纪要 / 录音 ASR 文本 / visiting record
@@ -26,7 +26,7 @@ trigger: 用户明示"会后归档 / 整理 Q&A / 见完 XX 后整理"
 
 1. **逐题回填**：把 question list 里的每个问题对应的回答整理出来
 2. **标状态**：问到了 / 没问到 / 回避了 / 和 vault 矛盾（分别处理）
-3. **标证据等级**：每个回答标完整中文证据等级 + wikilink 到来源（见 `core/evidence.md`）
+3. **标证据等级**：每个回答标完整中文证据等级 + wikilink 到来源（见 `../../core/evidence.md`）
 4. **触发 wiki 级联更新**：
    - §4 Key Take-Away 🔬 桶刷新本次会议
    - §5 关键指引：管理层口径全部入库（通常标 `待核验假设` + talk-book 风险）

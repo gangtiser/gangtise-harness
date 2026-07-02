@@ -1,6 +1,6 @@
 ---
 name: my-hk-ipo-analysis
-description: 港股 IPO 打新分析 skill（示例 L3 自创 skill）。用于评估港股 IPO 是否值得参与、杠杆倍数、暗盘出货策略。
+description: 港股 IPO 打新分析 skill（示例 L3 自创 skill）。用于评估港股 IPO 是否值得参与、杠杆风险分层、暗盘出货策略。
 inputs:
   - 标的名称 / 代码
   - 可选：招股书 PDF / 基石投资者清单 / 保荐人信息
@@ -24,10 +24,10 @@ version: 0.1
 
 > ⛔ 本 skill 自创，但仍必须走 Investor Harness 的标准流程
 >
-> - 开始前：[`.claude/skills/investor-harness/core/preamble.md`](.claude/skills/investor-harness/core/preamble.md) 完整开始前流程
-> - 结束后：[`.claude/skills/investor-harness/core/postamble.md`](.claude/skills/investor-harness/core/postamble.md) 完整结束后流程
-> - 归档：[`.claude/skills/investor-harness/core/output-archive.md`](.claude/skills/investor-harness/core/output-archive.md)
-> - 验收：[`.claude/skills/investor-harness/core/acceptance.md`](.claude/skills/investor-harness/core/acceptance.md)
+> - 开始前：[`.claude/skills/investor-harness/core/preamble.md`](../../.claude/skills/investor-harness/core/preamble.md) 完整开始前流程
+> - 结束后：[`.claude/skills/investor-harness/core/postamble.md`](../../.claude/skills/investor-harness/core/postamble.md) 完整结束后流程
+> - 归档：[`.claude/skills/investor-harness/core/output-archive.md`](../../.claude/skills/investor-harness/core/output-archive.md)
+> - 验收：[`.claude/skills/investor-harness/core/acceptance.md`](../../.claude/skills/investor-harness/core/acceptance.md)
 >
 > **跳过任何一环视为未完成任务**。
 
@@ -63,8 +63,8 @@ version: 0.1
 格式：
 ```
 "值得打 / 不建议 / 需要进一步信息 / 谨慎打"
-建议参与规模：N% 资金
-建议杠杆：无 / X 倍
+参与可行性：高 / 中 / 低（本 skill 不给下单规模数字，具体仓位由投资决策人定）
+杠杆风险分层：不建议 / 谨慎 / 可承受（杠杆属高风险，具体倍数由投资决策人定）
 ```
 
 （此判断必须标"需人工复核"）
@@ -125,18 +125,18 @@ version: 0.1
 
 **建议策略**：
 
-| 风险承受度 | 建议 |
+| 风险承受度 | 参与方式（规模 / 倍数由投资决策人定） |
 |---|---|
-| 保守 | 不打 / 小额现金打 |
-| 中性 | 现金打 N% 资金 |
-| 激进 | 杠杆 N 倍 |
+| 保守 | 不参与 / 现金小额 |
+| 中性 | 现金参与 |
+| 激进 | 杠杆参与（高风险，需人工评估承受度） |
 
 **退出策略**：
 - 暗盘市场流动性 → 暗盘出 vs 首日出
-- 首日跌破招股价 → 是否加仓摊低成本
+- 首日跌破招股价 → 是否补仓（需人工决定，不自动建议摊低成本）
 - 一个月后 → 是否转为长期持有
 
-**所有"建议杠杆倍数"必须带"需人工复核"**。
+**本 skill 不输出具体参与规模（N%）或杠杆倍数（X 倍），只给可行性 / 风险分层；规模与倍数由投资决策人决定。**
 
 ### §7 仍需补的资料
 
@@ -148,7 +148,7 @@ version: 0.1
 
 - 所有"首日涨跌"、"暗盘预期"类判断必须标 待核验假设（待验证）
 - 不给"必中"、"必破发"、"必涨"等武断表述
-- 涉及"建议杠杆 N 倍"必须带"需人工复核"标注
+- 不输出具体杠杆倍数 / 参与规模数字，只给可行性与风险分层，规模由投资决策人定
 - 港股通规则（如适用）必须显式说明
 - 不讨论内幕 / 未公开路演信息（合规红线）
 

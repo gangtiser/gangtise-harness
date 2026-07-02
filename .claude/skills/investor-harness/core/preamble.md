@@ -1,4 +1,4 @@
-# Preamble · 强制开始前流程（优化版 v0.5）
+# Preamble · 强制开始前流程
 
 > 所有 sk-* skill 在产生任何分析输出**之前**，按本文件完成流程。
 > **v0.5 改动**：并行取数 + 缓存优先 + 简化 Preflight。
@@ -18,9 +18,9 @@
    .checkpoint/{id}.md: 创建空文件
    ```
 
-3. **Context budget 检查**
-   - > 150k tokens → 警告"建议本任务完后开新会话"
-   - > 180k → 强制写 checkpoint，停止
+3. **Context budget 检查**（口径对齐 CLAUDE.md §1.6 / checkpoint.md，按"剩余"预算判断，不按绝对已用量——以适配不同 context 窗口的模型）
+   - 剩余 < 30k tokens → 警告"建议本任务完后开新会话"，可继续
+   - 剩余 < 10k → 强制写 checkpoint，停止
 
 **时间**：< 10 秒
 
@@ -29,7 +29,7 @@
 ## Step 1 · 识别市场 + 检查历史输出（合并）
 
 **市场识别**（1 秒）：
-- 按代码格式判断：6位数字→CN-A，字母→US，4-5位数字→HK
+- 按代码格式判断：6位数字→CN-A，字母→US，4-5位数字→HK（取数时不足 5 位前补 0，如 700→00700.HK）
 - 6 位且带"基金/ETF/LOF"字样（或 0/1/5 开头的基金代码）→ CN-FUND
 - 输出：`市场：{CN-A | CN-FUND | HK | US | GLOBAL}`
 
@@ -55,7 +55,7 @@
 
 ## Step 3 · 并行取数（核心优化）
 
-**先检查缓存**：`{workspace}/.cache/{ticker}_{type}_{date}.json`
+**先检查缓存**：`{workspace}/.cache/{ticker}_{type}_{date}.{json|md}`（结构化数据存 `.json`，知识库/AI 文本类存 `.md`）
 - 存在 → 直接读取，跳过 API 调用
 - 不存在 → 走下面并行批次
 

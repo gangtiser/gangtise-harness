@@ -22,14 +22,14 @@ markets: [CN-A, HK, US, GLOBAL]
 >
 > 不做花哨的动画、不做 hero banner、不做 emoji 狂欢。只做一件事：**让你的研究在 10 页纸里站得住**。
 
-## 强制流程（v0.4+ 硬约束）
+## 强制流程（硬约束）
 
 > ⛔ **任何 deck 生成之前**，必须严格执行 [`../../core/preamble.md`](../../core/preamble.md) 的开始前流程
 >
 > ⛔ **任何 deck 完成之前**，必须严格执行 [`../../core/postamble.md`](../../core/postamble.md) 的结束后流程
 >
 > 输出归档按 [`../../core/output-archive.md`](../../core/output-archive.md) 命名规范
-> 输出验收按 [`../../core/acceptance.md`](../../core/acceptance.md) 清单逐条自检
+> 输出验收按 [`../../core/acceptance.md`](../../core/acceptance.md)（默认抽查；Librarian / 对外重大交付 / 用户要求时全量自检）
 >
 > **跳过任何一环视为未完成任务。**
 
@@ -106,9 +106,9 @@ Three Supporting Pillars
   2. {Pillar 2 — 一句话}
   3. {Pillar 3 — 一句话}
 
-Recommended Action
+Research Stance（研究倾向，非交易指令 · 需投资决策人复核）
   {BUY / HOLD / SELL / WATCH}
-  {仓位建议 + 时间窗}
+  {研究倾向 + 观察动作 + 触发条件}
 
 ⚠️ 需人工复核
 ```
