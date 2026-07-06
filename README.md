@@ -97,13 +97,13 @@ gangtise-harness/
 
 ## 前置依赖：Gangtise OpenAPI CLI
 
-数据层依赖 **[gangtise-openapi-cli](https://github.com/gangtiser/gangtise-openapi-cli)**（命令行 `gangtise`，提供实时/历史行情 / 财务三表（A股·港股·美股）/ 估值 / 一致预期 / 股东 / 主营 / 公告 / 产业公众号 / 证券级数据指标（EDE）/ AI 能力）。它是主数据源——没有它，只能退到 Tavily / WebSearch 兜底。
+数据层依赖 **[gangtise-openapi-cli](https://github.com/gangtiser/gangtise-openapi-cli)**（命令行 `gangtise`，提供实时/历史行情 / 财务三表（A股·港股·美股）/ 估值 / 一致预期 / 股东 / 主营 / 资金流向 / 公告 / 产业公众号 / 证券级数据指标（EDE）/ AI 能力）。它是主数据源——没有它，只能退到 Tavily / WebSearch 兜底。
 
 ```bash
 # 安装（需 Node.js 20+）
 npm install -g gangtise-openapi-cli
 
-# 验证（本 harness 基于 v0.22.0 验证，2026-07-02）
+# 验证（本 harness 基于 v0.23.0 验证，2026-07-05）
 gangtise --version
 
 # 自检一条实时行情（代码须带市场后缀）
@@ -111,9 +111,9 @@ gangtise quote realtime --security 600000.SH --format json
 ```
 
 - **认证 / 配置**：按 CLI 仓库文档完成 → <https://github.com/gangtiser/gangtise-openapi-cli>
-- **v0.22 运行约束**：自动翻页接口省略 `--size` 会拉全量；日常列表必须显式 `--size N`，未知量级先用 `--size 1` 探 `Total`
-- **partial 结果**：遇到退出码 3 或 JSON 里的 `partial: true`，只能标为"部分结果 / 待补拉"，不得当成完整取数
-- **下载 / 输出**：`download --output` 在 v0.22 会跟随跳转并实际落文件；仍需检查目标路径和文件大小
+- **v0.23 运行约束**：自动翻页接口省略 `--size` 会拉全量；日常列表必须显式 `--size N`，未知量级先用 `--size 1` 探 `Total`
+- **partial 结果**：遇到退出码 3 或 JSON 里的 `partial: true`，只能标为"部分结果 / 待补拉"，不得当成完整取数（v0.23 起也覆盖 `fund-flow` / 分钟 K / 多标的日 K 撞 `--limit` 的截断场景）
+- **下载 / 输出**：`download --output` 在 v0.23 会跟随跳转并实际落文件；仍需检查目标路径和文件大小
 - **代码格式**：证券代码须带交易所后缀（A 股 `.SH` / `.SZ` / `.BJ`，港股 5 位 + `.HK`，美股 `.O` / `.N` / `.A`），裸代码会报错或返回空
 - **调用约定**：所有 `gangtise` 命令封装在 `core/adapters.md`，skill 不直接写死命令——换 CLI 版本或参数只改 adapters
 

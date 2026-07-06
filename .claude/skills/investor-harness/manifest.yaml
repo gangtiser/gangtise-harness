@@ -8,7 +8,7 @@ version: 0.9.2-gangtise
 description: 投研人的 AI 任务执行规范。28 个 sk-* skill + 5 个研究流水线 subagent，强制 LLM 在做投研工作时不出现幻觉、不丢失上下文、不输出杂乱。数据源统一走 Gangtise OpenAPI，证据分级用完整中文标签。
 license: MIT
 upstream: https://github.com/joansongjr/investor-harness
-last_synced: 2026-07-02
+last_synced: 2026-07-05
 
 # 三大痛点 + 上下文溢出保护
 solves:
