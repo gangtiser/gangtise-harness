@@ -356,6 +356,7 @@ typography:
 - ✅ 坐标轴单位清晰（亿元 / %）
 - ✅ Y 轴不从零开始时必须标注
 - ✅ 图表下方带完整中文数据来源标签（公开事实 / 财报披露等）
+- ✅ 需引用研报原图时先 `gangtise insight report-image list --keyword {关键词}`（搜索免费）拿 `chunkId`，再 `download --chunk-id`（0.1 积分/张）；图下标注来源研报
 - ❌ 不要用 3D 饼图 / 3D 柱状图
 - ❌ 不要用彩虹色
 - ❌ 不要用默认 Excel 风格

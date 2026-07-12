@@ -25,7 +25,7 @@ markets: [CN-A, HK, US]
 >
 > **跳过任何一环视为未完成任务。**
 
-Roadshow Questions 特别注意：preamble 必须包含市场争议点（近期研报、新闻）+ 历史沟通记录，否则会出"纸面问题"。preamble 必须读最近一份 deepdive 和 thesis。
+Roadshow Questions 特别注意：preamble 必须包含市场争议点（近期研报、新闻）+ 历史沟通记录 + **历史问答库已答内容**（`insight qa list --security-code {code} --start-time {近12个月} --size 200 --format json`，互动平台/电话会/调研纪要的历史问答，0.1 积分/条，**省略 `--size` 会拉全量**；不要用 `--answer-important 1` 预过滤——回避式低信息量回答正是高价值追问的线索，拉全后自行分类），否则会出"纸面问题"。已答过的不要再问，回避过的标为高价值追问；引用时仅互动平台来源（`--source interactive`）可标「公开事实」，电话会/调研纪要来源须先核出处再定证据等级。preamble 必须读最近一份 deepdive 和 thesis。
 
 适用场景：
 

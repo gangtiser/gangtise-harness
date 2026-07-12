@@ -8,7 +8,7 @@
 ## Step 1 · 归档 + 更新任务状态（合并）
 
 **一句话执行**：
-1. 写文件到归档路径（按 [output-archive.md](output-archive.md) 目录结构 + 命名）：`{coverage_root}/{ticker}_{name}/{目录名}/{YYYY-MM-DD}-{skill-short}.md`（目录名如 `deepdive/` `red-team/` `pm-brief/`，文件短名如 `deepdive`/`redteam`/`pmbrief`，二者不一定相同，均见 output-archive.md）
+1. 写文件到归档路径（按 [output-archive.md](output-archive.md) 目录结构 + 命名 + 产物 frontmatter）：`{coverage_root}/{ticker}_{name}/{目录名}/{YYYY-MM-DD}-{skill-short}.md`（目录名如 `deepdive/` `red-team/` `pm-brief/`，文件短名如 `deepdive`/`redteam`/`pmbrief`，二者不一定相同，均见 output-archive.md）；文件头部带 frontmatter（target_type / target_id / as_of / skill / status 必填），刷新替代旧文且旧文已有 frontmatter 时把旧文 `status` 改 `stale`（2026-07-12 前的历史文件不回填、不改动）
 2. 更新 `.task-pulse`：状态 done，删除 checkpoint
 3. 更新 `{coverage_root}/{ticker}_{name}/INDEX.md`：last_updated、latest_outputs
 

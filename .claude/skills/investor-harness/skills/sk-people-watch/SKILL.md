@@ -90,7 +90,7 @@ People Watch 特别注意：
 每个对象至少记录：
 
 - 名称 / 账号
-- 平台（X / Reddit / Substack / Podcast / Blog）
+- 平台（X / Reddit / Substack / Podcast / Blog / 微信公众号——公众号先用 `gangtise reference official-account-search --keyword {名称}` 解析 `accountId`，之后可 `insight official-account list --account-id` 定向抓取）
 - 关注主题
 - 关联股票 / 子赛道
 - 可信度级别：A（长期稳定一手）/ B（有用但需交叉验证）/ C（情绪 / 搬运）

@@ -2,4 +2,5 @@
 
 # 基于上游 investor-harness v0.9.2（~/Documents/git/investor-harness）
 # Gangtise 定制：sk- 命名 / 数据源统一 Gangtise OpenAPI（外部搜索保留 Tavily）/ 完整中文证据标签
-# 末次同步：2026-06-14
+# 上游末次同步：2026-06-14（与 manifest.yaml `upstream_synced` 一致）
+# gangtise-openapi-cli 文档对齐：v0.27.0 / 2026-07-11（与 manifest.yaml `cli_aligned`、core/adapters.md 头部、README「前置依赖」一致）

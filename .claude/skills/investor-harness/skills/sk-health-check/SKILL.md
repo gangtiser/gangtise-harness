@@ -5,7 +5,7 @@ inputs:
   - focus list（holdings + coverage）
   - vault 路径
 outputs:
-  - health-check-{YYYY-MM-DD}.md（状态巡查 flag 清单 + 跨源矛盾清单 + 建议追问方向 + 当日 diff 日志）
+  - briefings/health-check-{YYYY-MM-DD}.md（canonical 归档位置；状态巡查 flag 清单 + 跨源矛盾清单 + 建议追问方向 + 当日 diff 日志）
   - 每家公司 wiki §13 Diff Log 自动更新
 data_sources: 见 ../../core/adapters.md
 markets: [CN-A, CN-FUND, HK, US, GLOBAL]

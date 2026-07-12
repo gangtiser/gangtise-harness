@@ -56,6 +56,10 @@
 │   ├── pm-brief/                     ← sk-pm-brief 输出
 │   │   └── 2026-04-07-pmbrief.md
 │   │
+│   ├── decks/                        ← sk-deck-builder 输出（最终交付 PPTX/PDF）
+│   │   ├── 2026-04-07-deck-ic-pitch.pptx
+│   │   └── _project/                 ← 生成器工作目录（源材料/草稿，不入 INDEX 指针）
+│   │
 │   ├── data/                         ← 原始数据快照（财报、公告等）
 │   │   ├── 2024-annual-report.pdf
 │   │   └── 2025-Q3-financials.json
@@ -83,8 +87,12 @@
 {workspace_root}/briefings/
 ├── 2026-04-07-morning.md             ← sk-briefing 输出
 ├── 2026-04-07-evening.md
-└── weekly/
-    └── 2026-W14.md
+├── health-check-2026-07-12.md        ← sk-health-check 输出（canonical 归档位置）
+├── weekly/
+│   ├── 2026-W14-coverage-review.md   ← 历史周报（早于 2026-W28，无 frontmatter，doctor 不回填/跳过）
+│   └── 2026-W29-coverage-review.md   ← 新周报（2026-W28 起需 frontmatter）
+└── monthly/
+    └── 2026-07-pm-report.md          ← 月报（月度 PM 汇报）
 ```
 
 ---
@@ -102,6 +110,8 @@
 | `YYYY-MM-DD` | 必填，输出当天日期 | `2026-04-07` |
 | `skill-short` | skill 的简称（见下表） | `deepdive` / `thesis` / `earnings` |
 | `descriptor` | 可选，区分同日多次输出 | `update` / `postmortem` / `q4-special` |
+
+二进制交付（`decks/` 的 PPTX/PDF）同理：`{YYYY-MM-DD}-deck[-{descriptor}].pptx`。生成器时间戳命名的历史旧件不追改，但 INDEX 指针必须指向最终交付件。
 
 ### Skill 简称对照表
 
@@ -195,6 +205,30 @@ skills 在归档前必须读 CLAUDE.md 拿到这两个值。
 ```
 
 INDEX.md 是 LLM **每次** preamble 检查的首要文件。
+
+---
+
+## 产物 Frontmatter（血缘与时效）
+
+自 2026-07-12 起，新归档的 .md 产物在文件头部加 YAML frontmatter（**历史文件不回填**）：
+
+```yaml
+---
+target_type: ticker          # ticker / theme / market / portfolio / workspace
+target_id: 300502.SZ         # ticker 带交易所后缀；theme 用主题 slug；market 用市场名；portfolio 用池名；workspace 固定 harness
+as_of: 2026-07-12            # 数据基准日
+skill: sk-earnings-preview
+status: final                # final / draft / stale
+supersedes: 2026-04-28-earnings-preview.md   # 可选：被本文替代的上一版（同目录文件名）
+verification_due: 2026-08-30                 # 可选：命题/数据的下次验证节点
+---
+```
+
+- 必填 5 项：`target_type` / `target_id` / `as_of` / `skill` / `status`；`supersedes` / `verification_due` 按需
+- `target_type` 取值：个股 `ticker`（target_id 如 `300502.SZ`）· 行业/主题 `theme`（如 `AI-capex`）· 全市场筛选 `market`（如 `CN-A`）· 覆盖池批量/晨报晚报 `portfolio`（如 `coverage-pool`）· 健康检查等仓库级产物 `workspace`（固定 `harness`）——briefing、选股、批量刷新这类非个股产物由此自然表达
+- **时效传播**：刷新类任务（sk-batch-refresh 等）产出新文件时，新文 `supersedes` 指回旧文；**仅当旧文本身已有 frontmatter** 时才把旧文 `status` 改为 `stale`。若旧文是 2026-07-12 前的历史文件（无 frontmatter），按"历史文件不回填"优先：不改旧文，血缘由新文 `supersedes` 单向承载——半年后回看仍能分清"最新结论"与"过时底稿"
+- 分工：INDEX.md 的 `latest_outputs` 管"每类最新指针"，frontmatter 管"文与文之间的血缘链"
+- `scripts/harness-doctor.sh` 会校验 2026-07-12 起新增产物的 5 项必填 + 值合法（`target_type`/`status` 枚举、`as_of` 真实日历、拒绝 `""`/`null`/`~` 占位与重复键），并覆盖周报（`YYYY-Www-*.md`）/ 月报（`YYYY-MM-*.md`）/ 健康检查（`health-check-YYYY-MM-DD.md`）等非日期前缀产物；LLM 漏写或写错会被拦下
 
 ---
 

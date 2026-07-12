@@ -16,6 +16,8 @@ trigger: 用户明示"见 XX 前过一遍 question list / 准备调研提纲"
 
 **Librarian 模式 skill**。机制最大的副作用：**vault 扫描经常会主动纠正你的认知偏差**——你以为的数字和 vault 里实际能找到的数字经常有出入。系统把两个数字摆在一起，矛盾立刻暴露——这种纠正如果在会上才发生，代价就大了。
 
+vault 之外再拉一层**历史问答库对照**：`gangtise insight qa list --security-code {code} --start-time {近12个月} --size 200 --format json`（互动平台/电话会/调研纪要的历史问答，0.1 积分/条；**省略 `--size` 会拉全量**，要更久历史再显式扩量；不要用 `--answer-important 1` 预过滤——回避式回答正是高价值追问线索）——已回答过的问题从清单里降级或删除，回避过的标为高价值追问；仅互动平台来源（`--source interactive`）可当公开问答引用。
+
 ## 强制流程
 
 > ⛔ 先读 [`../../core/qa-double-link.md`](../../core/qa-double-link.md) 双链机制
